@@ -261,3 +261,15 @@ describe("Zaphken pages", () => {
     expect(html).toContain(">Zaphkenate began<");
   });
 });
+
+describe("stylesheets", () => {
+  it("ships infobox and link CSS as unlayered resources, and links can be switched off", async () => {
+    const { default: InfoboxStyles } = await import("../src/transformer");
+    const on = InfoboxStyles().externalResources!({} as never) as { css: { inline?: boolean }[] };
+    const off = InfoboxStyles({ wikiLinks: false }).externalResources!({} as never) as { css: unknown[] };
+    expect(on.css).toHaveLength(2);
+    expect(on.css.every((c) => c.inline)).toBe(true);
+    expect(off.css).toHaveLength(1);
+    expect(typeof InfoboxStyles().htmlPlugins).toBe("function");
+  });
+});

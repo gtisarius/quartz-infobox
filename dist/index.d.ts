@@ -1,5 +1,19 @@
+import { QuartzTransformerPlugin, FullSlug } from '@quartz-community/types';
 export { Infobox, InfoboxOptions } from './components/index.js';
-import { FullSlug } from '@quartz-community/types';
+
+interface InfoboxPluginOptions {
+    /** Frontmatter key that selects the infobox type. Defaults to "infobox". */
+    typeKey?: string;
+    /** Style article links like Wikipedia's (blue, red for missing pages). Defaults to true. */
+    wikiLinks?: boolean;
+}
+/**
+ * Ships the stylesheets. Quartz puts component CSS inside a cascade layer, and
+ * unlayered theme CSS always beats layered CSS, so the styles go out as `inline`
+ * external resources instead: Quartz writes those to their own unlayered files
+ * (static/resource-style-*.css), loaded once for the whole site.
+ */
+declare const InfoboxStyles: QuartzTransformerPlugin<InfoboxPluginOptions>;
 
 /** Context needed to turn [[wikilinks]] and image paths into working URLs. */
 interface RenderCtx {
@@ -31,4 +45,4 @@ declare function resolveWikilink(target: string, ctx: RenderCtx): {
 /** URL for an image path written relative to the content folder, e.g. img/flags/Vicus.png. */
 declare function resolveAsset(path: string, ctx: RenderCtx): string;
 
-export { normalizeKeys, numberedGroups, resolveAsset, resolveWikilink };
+export { type InfoboxPluginOptions, InfoboxStyles as default, normalizeKeys, numberedGroups, resolveAsset, resolveWikilink };

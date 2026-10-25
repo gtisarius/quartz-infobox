@@ -10,7 +10,6 @@ import { knownCountry, renderCountry } from "../country";
 import { knownElection, renderElection } from "../election";
 import { knownPerson, renderPerson } from "../person";
 import { type Fields, type RenderCtx, hasValue, normalizeKeys } from "../render";
-import style from "./styles/infobox.scss";
 // @ts-expect-error - inline script import handled by the bundler
 import script from "./scripts/infobox.inline.ts";
 
@@ -85,15 +84,8 @@ export default ((opts?: InfoboxOptions) => {
     const fallbackTitle = typeof fields.title === "string" ? fields.title : "";
     const box = infoboxType.render(fields, ctx, fallbackTitle);
     if (!box) return null;
-    // Quartz puts plugin CSS (Component.css) inside an @layer, and unlayered theme CSS
-    // always beats layered CSS. Shipping the styles as a plain <style> keeps the
-    // infobox looking like Wikipedia whatever theme is active.
-    return (
-      <>
-        <style data-infobox-style dangerouslySetInnerHTML={{ __html: style }} />
-        {box}
-      </>
-    );
+    // Styles come from the plugin's transformer (see transformer.ts), not Component.css.
+    return box;
   };
 
   Infobox.afterDOMLoaded = script;

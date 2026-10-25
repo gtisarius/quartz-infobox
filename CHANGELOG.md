@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- Wikipedia-style article links: blue for existing pages, red for missing ones, no highlight boxes (`wikiLinks: false` turns this off). Needs `disableBrokenWikilinks: true` on the crawl-links plugin for the red links.
+- Styles are now loaded once per site as unlayered stylesheets instead of inlined on every page. The plugin is now both a transformer and a component.
+
 ## 0.2.1
 
 - A lone `Predecessor:` / `Successor:` (no numbered office) is shown instead of dropped.

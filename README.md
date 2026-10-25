@@ -160,10 +160,20 @@ Write image paths relative to the `content` folder, e.g. `img/flags/Vicus.png` f
 | Option | Default | Description |
 |---|---|---|
 | `typeKey` | `infobox` | Frontmatter key that selects the infobox type |
+| `wikiLinks` | `true` | Style article links like Wikipedia: blue for existing pages, red for missing ones, no highlight boxes. Tag links keep the theme's style. |
 
-## Why the styles are inline
+For red links, Quartz has to mark links to missing pages. Turn that on in the crawl-links plugin:
 
-Quartz wraps plugin CSS in a CSS `@layer`, and themes that ship unlayered stylesheets always beat layered CSS, which turned the box into a striped, low-contrast table. The plugin therefore renders its stylesheet as a `<style>` element next to the box.
+```yaml
+  - source: "@quartz-community/crawl-links"
+    options:
+      markdownLinkResolution: shortest
+      disableBrokenWikilinks: true
+```
+
+## How the styles load
+
+Quartz wraps component CSS in a CSS `@layer`, and themes that ship unlayered stylesheets always beat layered CSS, which turned the box into a striped, low-contrast table. So the plugin is also a small transformer whose only job is to hand Quartz its stylesheets as `inline` external resources; Quartz writes those to unlayered files (`static/resource-style-*.css`) loaded once for the whole site.
 
 ## Links
 

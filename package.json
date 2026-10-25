@@ -1,6 +1,6 @@
 {
   "name": "quartz-infobox",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Wikipedia-style infoboxes for Quartz 5, built from page frontmatter.",
   "type": "module",
   "license": "MIT",
@@ -86,18 +86,25 @@
   "quartz": {
     "name": "quartz-infobox",
     "displayName": "Infobox",
-    "category": "component",
-    "version": "0.2.1",
+    "category": [
+      "transformer",
+      "component"
+    ],
+    "version": "0.3.0",
     "quartzVersion": ">=5.0.0",
     "dependencies": [],
     "defaultOrder": 50,
     "defaultEnabled": true,
     "defaultOptions": {
-      "typeKey": "infobox"
+      "typeKey": "infobox",
+      "wikiLinks": true
     },
     "optionSchema": {
       "typeKey": {
         "type": "string"
+      },
+      "wikiLinks": {
+        "type": "boolean"
       }
     },
     "components": {

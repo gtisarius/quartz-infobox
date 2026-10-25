@@ -9,6 +9,7 @@ export default defineConfig({
       enforce: "pre",
       load(id) {
         if (id.endsWith(".inline.ts")) return "export default ''";
+        if (id.endsWith(".scss")) return "export default 'css'";
         return null;
       },
     },

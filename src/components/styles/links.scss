@@ -1,0 +1,42 @@
+// Wikipedia-style links in article text: plain blue for pages that exist, red for
+// pages that don't (Quartz marks those with `.broken` when crawl-links has
+// `disableBrokenWikilinks: true`). No highlight boxes, underline on hover.
+// Tag links (.tag-link) keep the theme's pill style.
+//
+// The doubled `:root:root` outranks theme rules such as
+// `html[saved-theme] body a.internal-link.broken`.
+
+:root {
+  --wl-link: #3366cc;
+  --wl-redlink: #d73333;
+}
+
+:root[saved-theme="dark"] {
+  --wl-link: #88a3e8;
+  --wl-redlink: #fd7865;
+}
+
+:root:root body a.internal.internal-link:not(.tag-link),
+:root:root body a.internal.internal-link:not(.tag-link):visited {
+  color: var(--wl-link);
+  background: none;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-family: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  filter: none;
+  opacity: 1;
+
+  &:hover {
+    text-decoration: underline;
+    text-decoration-color: currentColor;
+  }
+
+  &.broken {
+    color: var(--wl-redlink);
+    opacity: 1;
+    filter: none;
+  }
+}
