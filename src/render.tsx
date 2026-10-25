@@ -256,8 +256,21 @@ export function renderInline(value: unknown, ctx: RenderCtx, keyPrefix = "v"): C
   ));
 }
 
+/**
+ * An unquoted `[[Page]]` in YAML is read as a list inside a list (`[["Page"]]`).
+ * Turn those back into the wikilink that was meant.
+ */
+function unnestLinks(value: unknown): unknown {
+  const fix = (v: unknown): unknown =>
+    Array.isArray(v) && v.length === 1 && typeof v[0] === "string" ? `[[${v[0].trim()}]]` : v;
+  if (!Array.isArray(value)) return value;
+  if (value.length === 1 && Array.isArray(value[0])) return fix(value[0]);
+  return value.map(fix);
+}
+
 /** Render any field value: a list becomes a plain (unbulleted) list, anything else inline text. */
 export function renderValue(value: unknown, ctx: RenderCtx): ComponentChildren {
+  value = unnestLinks(value);
   if (Array.isArray(value)) {
     const items = value.filter(hasValue);
     if (items.length === 1) return renderInline(items[0], ctx);

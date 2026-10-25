@@ -244,3 +244,20 @@ describe("old Chronicler nation pages", () => {
     expect(html.match(/Preceded by/g)?.length).toBe(1);
   });
 });
+
+describe("Zaphken pages", () => {
+  it("keeps a lone Predecessor/Successor and repairs unquoted [[links]]", () => {
+    const html = renderPage({
+      infobox: "person",
+      "Resting place": [["Grand Zaphkenate Masoleum"]],
+      Predecessor: "Zaphken Sashula",
+      Successor: "Zaphken Kubael",
+      "Zaphkenate began": "1752",
+    });
+    expect(html).toContain("Zaphken Sashula");
+    expect(html).toContain("Zaphken Kubael");
+    expect(html).toMatch(/infobox-redlink[^>]*>Grand Zaphkenate Masoleum</);
+    expect(html).not.toContain("[&quot;");
+    expect(html).toContain(">Zaphkenate began<");
+  });
+});

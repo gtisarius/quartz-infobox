@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.1
+
+- A lone `Predecessor:` / `Successor:` (no numbered office) is shown instead of dropped.
+- Unquoted `[[Page]]` values, which YAML reads as a nested list, render as links.
+- Image captions are centered.
+
 ## 0.2.0
 
 - New `person`, `conflict` and `election` infoboxes, with unlimited numbered offices, sides and candidates.

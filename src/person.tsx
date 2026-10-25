@@ -61,15 +61,19 @@ const OFFICE_FIELDS = [
 
 /** Office blocks from numbered fields: office1, term_start1, predecessor1, … */
 function structuredOffices(r: Rows): number {
-  const offices = numberedGroups(r.fields, OFFICE_FIELDS).filter((o) => hasValue(o.office));
+  // A group without an office name (e.g. a lone "Predecessor:" key) still shows its
+  // rows, just without a blue office bar, so nothing written on the page is lost.
+  const offices = numberedGroups(r.fields, OFFICE_FIELDS);
   for (const o of offices) {
-    r.header(
-      <>
-        {hasValue(o.order) ? <>{renderInline(o.order, r.ctx)} </> : null}
-        {renderInline(o.office, r.ctx)}
-      </>,
-      "infobox-header infobox-office",
-    );
+    if (hasValue(o.office)) {
+      r.header(
+        <>
+          {hasValue(o.order) ? <>{renderInline(o.order, r.ctx)} </> : null}
+          {renderInline(o.office, r.ctx)}
+        </>,
+        "infobox-header infobox-office",
+      );
+    }
     const label = hasValue(o.term_label) ? String(o.term_label) : null;
     let termText: string | null = null;
     let termLabel = label ?? "In office";
@@ -94,7 +98,7 @@ function structuredOffices(r: Rows): number {
     r.row("Succeeded by", o.successor);
     r.fullValue(o.office_note, "infobox-full infobox-note");
   }
-  return offices.length;
+  return offices.filter((o) => hasValue(o.office)).length;
 }
 
 /**
