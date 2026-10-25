@@ -1,4 +1,4 @@
-import type { ComponentChildren, VNode } from "preact";
+import type { VNode } from "preact";
 import {
   type Fields,
   type RenderCtx,
@@ -7,89 +7,34 @@ import {
   plainText,
   renderInline,
   renderValue,
-  resolveAsset,
 } from "./render";
+import { applyAliases } from "./render";
+import { Rows, box, image } from "./rows";
 
-/** Builds table rows. Every helper skips itself when its value is empty. */
-class Rows {
-  readonly rows: VNode[] = [];
-  private n = 0;
-  constructor(
-    private readonly fields: Fields,
-    private readonly ctx: RenderCtx,
-  ) {}
-
-  private key(): string {
-    return `r${this.n++}`;
-  }
-
-  /** A labelled row: label on the left, value on the right. */
-  row(
-    label: ComponentChildren,
-    value: unknown,
-    opts: { sub?: boolean; allowEmpty?: boolean } = {},
-  ): boolean {
-    if (!hasValue(value) && !opts.allowEmpty) return false;
-    this.rows.push(
-      <tr key={this.key()} class={opts.sub ? "infobox-subrow" : undefined}>
-        <th scope="row" class="infobox-label">
-          {opts.sub ? <span class="infobox-bullet">•&nbsp;</span> : null}
-          {label}
-        </th>
-        <td class="infobox-data">{hasValue(value) ? renderValue(value, this.ctx) : null}</td>
-      </tr>,
-    );
-    return true;
-  }
-
-  /** Row for a single frontmatter key. */
-  field(key: string, label: string, opts: { sub?: boolean } = {}): boolean {
-    return this.row(label, this.fields[key], opts);
-  }
-
-  /** A full-width blue section bar. */
-  header(text: ComponentChildren): void {
-    this.rows.push(
-      <tr key={this.key()}>
-        <th colSpan={2} class="infobox-header">
-          {text}
-        </th>
-      </tr>,
-    );
-  }
-
-  /** A full-width centered row (images, motto, anthem). */
-  full(content: ComponentChildren, className = "infobox-full"): void {
-    this.rows.push(
-      <tr key={this.key()}>
-        <td colSpan={2} class={className}>
-          {content}
-        </td>
-      </tr>,
-    );
-  }
-
-  /** Adds a header only if the rows that follow produce something. */
-  section(title: ComponentChildren, build: () => void): void {
-    const headerAt = this.rows.length;
-    this.header(title);
-    const before = this.rows.length;
-    build();
-    if (this.rows.length === before) this.rows.splice(headerAt, 1);
-  }
-}
-
-function image(path: unknown, alt: string, ctx: RenderCtx, className: string): VNode | null {
-  if (!hasValue(path)) return null;
-  const src = resolveAsset(String(Array.isArray(path) ? path[0] : path), ctx);
-  return <img src={src} alt={alt} class={className} loading="lazy" />;
-}
+/** Chronicler-style keys → Wikipedia-style keys. */
+const ALIASES: [RegExp, string][] = [
+  [/^full_name$/, "conventional_long_name"],
+  [/^official_language$/, "official_languages"],
+  [/^national_language$/, "national_languages"],
+  [/^regional_language$/, "regional_languages"],
+  [/^religions$/, "religion"],
+  [/^government$/, "government_type"],
+  [/^population$/, "population_estimate"],
+];
 
 export function renderCountry(
-  fields: Fields,
+  raw: Fields,
   ctx: RenderCtx,
   fallbackTitle: string,
 ): VNode | null {
+  const fields = applyAliases(raw, ALIASES);
+  // Old Chronicler pages keep flag and map together as `image: [flag, map]`.
+  if (hasValue(fields.image) && !hasValue(fields.flag) && !hasValue(fields.map)) {
+    const images = (Array.isArray(fields.image) ? fields.image : [fields.image]).filter(hasValue);
+    fields.flag = images[0];
+    fields.map = images[1];
+    delete fields.image;
+  }
   const r = new Rows(fields, ctx);
   const title =
     (hasValue(fields.conventional_long_name) && fields.conventional_long_name) ||
@@ -233,15 +178,13 @@ export function renderCountry(
   r.field("preceded_by", "Preceded by");
   r.field("succeeded_by", "Succeeded by");
 
-  return (
-    <table class="infobox infobox-country">
-      <caption class="infobox-title">
-        {renderInline(title, ctx)}
-        {hasValue(fields.native_name) ? (
-          <div class="infobox-native-name">{renderValue(fields.native_name, ctx)}</div>
-        ) : null}
-      </caption>
-      <tbody>{r.rows}</tbody>
-    </table>
-  );
+  r.extras();
+
+  // Show the subtitle under the title unless it just repeats it (e.g. dates of existence).
+  const subtitle =
+    hasValue(fields.subtitle) && plainText(fields.subtitle) !== plainText(title) ? fields.subtitle : undefined;
+  return box("country", title, ctx, r.rows, { below: [fields.native_name, subtitle] });
 }
+
+/** Keys this infobox type understands; anything else is shown as an extra row. */
+export const knownCountry = /^(?:conventional_long_name|common_name|native_name|subtitle|image|flag|flag_caption|coat_of_arms|coat_of_arms_caption|motto|anthem|map|map_caption|status|capital|largest_city|largest_cities|official_languages?|national_languages?|recognized_languages|regional_languages?|ethnic_groups|state_religion|religions?|demonym|government|government_type|leader_title\d*|leader_name\d*|legislature\d*|upper_house\d*|lower_house\d*|sovereignty_type|sovereignty_note|established_event\d*|established_date\d*|area|area_note|population|population_estimate|population_estimate_year|population_census|population_census_year|population_density|currency|calendar|preceded_by|succeeded_by|full_name)$/;

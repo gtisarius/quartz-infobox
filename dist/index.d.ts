@@ -7,6 +7,11 @@ interface RenderCtx {
     src: FullSlug;
     /** Slugs of every page on the site, used to resolve links and spot missing pages. */
     allSlugs: FullSlug[];
+    /** Fields the infobox type doesn't know, shown as plain rows at the bottom. */
+    extras?: {
+        label: string;
+        value: unknown;
+    }[];
 }
 /** Frontmatter with keys normalized: lowercase, spaces/hyphens turned into underscores. */
 type Fields = Record<string, unknown>;

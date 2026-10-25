@@ -8,6 +8,8 @@ export interface RenderCtx {
   src: FullSlug;
   /** Slugs of every page on the site, used to resolve links and spot missing pages. */
   allSlugs: FullSlug[];
+  /** Fields the infobox type doesn't know, shown as plain rows at the bottom. */
+  extras?: { label: string; value: unknown }[];
 }
 
 /** Frontmatter with keys normalized: lowercase, spaces/hyphens turned into underscores. */
@@ -18,6 +20,29 @@ export function normalizeKeys(frontmatter: Record<string, unknown> | undefined):
   if (!frontmatter) return out;
   for (const [key, value] of Object.entries(frontmatter)) {
     out[key.trim().toLowerCase().replace(/[\s-]+/g, "_")] = value;
+  }
+  return out;
+}
+
+/**
+ * Rename keys using alias rules. Each rule maps a regex on the normalized key to the
+ * new key ("$1" inserts the first captured group, used for numbers). A key that already
+ * exists under its new name is never overwritten.
+ */
+export function applyAliases(fields: Fields, rules: [RegExp, string][]): Fields {
+  const out: Fields = { ...fields };
+  for (const [key, value] of Object.entries(fields)) {
+    for (const [pattern, replacement] of rules) {
+      const m = pattern.exec(key);
+      if (!m) continue;
+      const target = replacement.replace("$1", m[1] ?? "");
+      if (target === key) break;
+      if (!(target in fields) || !hasValue(fields[target])) {
+        out[target] = value;
+        delete out[key];
+      }
+      break;
+    }
   }
   return out;
 }
@@ -104,10 +129,19 @@ export function resolveAsset(path: string, ctx: RenderCtx): string {
     .replace(/^!?\[\[/, "")
     .replace(/\]\]$/, "")
     .split("|")[0]!
-    .trim()
-    .replace(/^\.?\//, "");
+    .trim();
   if (/^[a-z][a-z0-9+.-]*:\/\//i.test(cleaned)) return cleaned;
-  return joinSegments(pathToRoot(ctx.src), slugifyFilePath(cleaned as FilePath));
+  // "../img/x.png" is relative to the page's own folder; anything else to the content root.
+  let fromRoot = cleaned.replace(/^\//, "");
+  if (/^\.\.?\//.test(cleaned)) {
+    const parts = ctx.src.split("/").slice(0, -1);
+    for (const segment of cleaned.split("/")) {
+      if (segment === "..") parts.pop();
+      else if (segment !== ".") parts.push(segment);
+    }
+    fromRoot = parts.join("/");
+  }
+  return joinSegments(pathToRoot(ctx.src), slugifyFilePath(fromRoot as FilePath));
 }
 
 /** Render **bold** and *italic* inside a plain-text run. */
@@ -126,41 +160,55 @@ function renderEmphasis(text: string, keyPrefix: string): ComponentChildren[] {
   return out;
 }
 
-/** Render one line of text that may contain [[wikilinks]], **bold** and *italic*. */
+/** Render a [[wikilink]] (the text between the brackets). */
+function renderLink(inner: string, ctx: RenderCtx, key: string): ComponentChildren {
+  const pipe = inner.indexOf("|");
+  const rawTarget = (pipe === -1 ? inner : inner.slice(0, pipe)).trim();
+  const target = rawTarget.replace(/[*_]+/g, "").trim();
+  const labelText = pipe === -1 ? rawTarget.replace(/#/, " › ") : inner.slice(pipe + 1).trim();
+  const label = renderEmphasis(labelText, `${key}lab`);
+  const { href, exists } = resolveWikilink(target, ctx);
+  return exists ? (
+    <a key={key} href={href} class="internal">
+      {label}
+    </a>
+  ) : (
+    <a key={key} href={href} class="internal infobox-redlink" title={`${target} (page does not exist yet)`}>
+      {label}
+    </a>
+  );
+}
+
+/**
+ * Render one line of text that may contain [[wikilinks]], **bold** and *italic*.
+ * Links are swapped for placeholders first, so emphasis can wrap a link
+ * ("**[[King of Vicus]]**") without the asterisks inside link targets confusing it.
+ */
 function renderLine(line: string, ctx: RenderCtx, keyPrefix: string): ComponentChildren[] {
-  const out: ComponentChildren[] = [];
-  let last = 0;
-  let i = 0;
-  for (const match of line.matchAll(WIKILINK)) {
-    if (match.index! > last) {
-      out.push(...renderEmphasis(line.slice(last, match.index), `${keyPrefix}t${i}`));
+  const links: string[] = [];
+  const masked = line.replace(WIKILINK, (_m, inner: string) => `\u0000${links.push(inner) - 1}\u0000`);
+  let n = 0;
+
+  const plain = (text: string): ComponentChildren[] =>
+    text
+      .split(/\u0000(\d+)\u0000/)
+      .map((part, i) => (i % 2 === 1 ? renderLink(links[Number(part)]!, ctx, `${keyPrefix}l${n++}`) : part))
+      .filter((part) => part !== "");
+
+  const rich = (text: string): ComponentChildren[] => {
+    const out: ComponentChildren[] = [];
+    let last = 0;
+    for (const match of text.matchAll(/\*\*(.+?)\*\*|\*(.+?)\*/g)) {
+      if (match.index! > last) out.push(...plain(text.slice(last, match.index)));
+      if (match[1] !== undefined) out.push(<b key={`${keyPrefix}b${n++}`}>{rich(match[1])}</b>);
+      else out.push(<i key={`${keyPrefix}i${n++}`}>{rich(match[2]!)}</i>);
+      last = match.index! + match[0].length;
     }
-    const inner = match[1]!;
-    const pipe = inner.indexOf("|");
-    const target = (pipe === -1 ? inner : inner.slice(0, pipe)).trim();
-    const label = pipe === -1 ? target.replace(/#/, " › ") : inner.slice(pipe + 1).trim();
-    const { href, exists } = resolveWikilink(target, ctx);
-    out.push(
-      exists ? (
-        <a key={`${keyPrefix}l${i}`} href={href} class="internal">
-          {label}
-        </a>
-      ) : (
-        <a
-          key={`${keyPrefix}l${i}`}
-          href={href}
-          class="internal infobox-redlink"
-          title={`${target} (page does not exist yet)`}
-        >
-          {label}
-        </a>
-      ),
-    );
-    last = match.index! + match[0].length;
-    i++;
-  }
-  if (last < line.length) out.push(...renderEmphasis(line.slice(last), `${keyPrefix}t${i}`));
-  return out;
+    if (last < text.length) out.push(...plain(text.slice(last)));
+    return out;
+  };
+
+  return rich(masked);
 }
 
 function scalarToText(value: unknown): string {
@@ -169,15 +217,43 @@ function scalarToText(value: unknown): string {
   return String(value).trim();
 }
 
-/** Render text, splitting on line breaks. */
+export interface Line {
+  /** 0 for normal text, 1+ for "* " sub-items (more leading spaces = deeper). */
+  level: number;
+  text: string;
+}
+
+/** Split a value into lines, understanding <br> tags and "* " / "- " sub-items. */
+export function parseLines(value: unknown): Line[] {
+  return scalarToText(value)
+    .replace(/<br\s*\/?>/gi, "\n")
+    .split(/\r?\n/)
+    .map((raw) => {
+      const bullet = /^(\s*)[*-]\s+(.*)$/.exec(raw);
+      if (bullet) {
+        const indent = bullet[1]!.length;
+        return { level: Math.min(1 + Math.floor(indent / 2), 3), text: bullet[2]!.trim() };
+      }
+      return { level: 0, text: raw.trim() };
+    })
+    .filter((line) => line.text !== "" && line.text !== "\\");
+}
+
+/** Render one parsed line (without its bullet). */
+export function renderLineText(text: string, ctx: RenderCtx, keyPrefix: string): ComponentChildren[] {
+  return renderLine(text, ctx, keyPrefix);
+}
+
+/** Render text: line breaks become separate lines and "* " lines become indented sub-items. */
 export function renderInline(value: unknown, ctx: RenderCtx, keyPrefix = "v"): ComponentChildren {
-  const lines = scalarToText(value).split(/\r?\n/);
-  const out: ComponentChildren[] = [];
-  lines.forEach((line, n) => {
-    if (n > 0) out.push(<br key={`${keyPrefix}br${n}`} />);
-    out.push(...renderLine(line, ctx, `${keyPrefix}${n}`));
-  });
-  return out;
+  const lines = parseLines(value);
+  if (lines.length === 0) return null;
+  if (lines.length === 1 && lines[0]!.level === 0) return renderLine(lines[0]!.text, ctx, `${keyPrefix}0`);
+  return lines.map((line, n) => (
+    <div key={`${keyPrefix}${n}`} class={line.level ? `infobox-line infobox-sub infobox-sub-${line.level}` : "infobox-line"}>
+      {renderLine(line.text, ctx, `${keyPrefix}${n}`)}
+    </div>
+  ));
 }
 
 /** Render any field value: a list becomes a plain (unbulleted) list, anything else inline text. */
@@ -187,9 +263,16 @@ export function renderValue(value: unknown, ctx: RenderCtx): ComponentChildren {
     if (items.length === 1) return renderInline(items[0], ctx);
     return (
       <ul class="infobox-plainlist">
-        {items.map((item, n) => (
-          <li key={n}>{renderInline(item, ctx, `li${n}`)}</li>
-        ))}
+        {items.map((item, n) => {
+          const sub = typeof item === "string" ? /^(\s*)[*-]\s+/.exec(item) : null;
+          return sub ? (
+            <li key={n} class={`infobox-sub infobox-sub-${Math.min(1 + Math.floor(sub[1]!.length / 2), 3)}`}>
+              {renderInline(item.slice(sub[0].length), ctx, `li${n}`)}
+            </li>
+          ) : (
+            <li key={n}>{renderInline(item, ctx, `li${n}`)}</li>
+          );
+        })}
       </ul>
     );
   }

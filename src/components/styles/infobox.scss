@@ -157,7 +157,8 @@
 
     li {
       margin: 0;
-      padding: 0;
+      padding-top: 0;
+      padding-bottom: 0;
       color: inherit;
       line-height: inherit;
       font-size: inherit;
@@ -180,6 +181,175 @@
   a.internal.infobox-redlink {
     color: var(--ib-redlink);
   }
+
+  // Links in section bars and row labels keep the bold of their surroundings.
+  th a.internal,
+  b a.internal,
+  strong a.internal {
+    font-weight: inherit;
+  }
+
+  // Small line above the title (honorific prefix).
+  .infobox-above {
+    font-size: 80%;
+    font-weight: normal;
+  }
+
+  // Keep the box's font for bold and italic text (some themes switch fonts for them).
+  b,
+  strong,
+  i,
+  em {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  b,
+  strong {
+    font-weight: bold;
+  }
+
+  i,
+  em {
+    font-style: italic;
+  }
+
+  // Lines inside a value; "* " sub-items are indented with a bullet.
+  .infobox-line {
+    display: block;
+  }
+
+  .infobox-sub,
+  ul.infobox-plainlist li.infobox-sub {
+    display: block;
+    padding-left: 0.9em;
+    text-indent: -0.6em;
+
+    &::before {
+      content: "• ";
+    }
+  }
+
+  .infobox-sub-2 {
+    margin-left: 0.9em;
+  }
+
+  .infobox-sub-3 {
+    margin-left: 1.8em;
+  }
+
+  // Person: office bars and the "In office" line under them.
+  th.infobox-header.infobox-office {
+    font-weight: bold;
+  }
+
+  td.infobox-term {
+    text-align: center;
+  }
+
+  td.infobox-note {
+    text-align: center;
+    font-style: italic;
+  }
+
+  .infobox-signature-label {
+    font-weight: bold;
+  }
+
+  img.infobox-image {
+    max-height: 20em;
+  }
+
+  img.infobox-signature {
+    max-height: 4em;
+  }
+
+  // Conflict: "Part of …" line under the title.
+  td.infobox-partof {
+    text-align: center;
+    font-size: 95%;
+  }
+
+  // Nested tables: belligerent columns, candidate grid, election succession row.
+  td.infobox-columns-cell {
+    padding: 0;
+  }
+
+  table.infobox-columns,
+  table.infobox-grid,
+  table.infobox-succession {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background: none;
+    font: inherit;
+    color: inherit;
+    table-layout: fixed;
+    float: none;
+  }
+
+  table.infobox-columns td {
+    vertical-align: top;
+    padding: 0.2em 0.35em;
+
+    & + td {
+      border-left: 1px solid var(--ib-border);
+    }
+  }
+
+  table.infobox-grid {
+    th {
+      width: 28%;
+      font-weight: bold;
+      vertical-align: top;
+    }
+
+    td {
+      text-align: center;
+      vertical-align: top;
+    }
+
+    td.infobox-grid-head {
+      vertical-align: bottom;
+    }
+  }
+
+  .infobox-candidate-name {
+    font-weight: bold;
+  }
+
+  img.infobox-candidate-image {
+    max-height: 9em;
+    margin-bottom: 0.2em;
+  }
+
+  table.infobox-succession td {
+    vertical-align: middle;
+
+    &.infobox-prev {
+      text-align: left;
+      width: 30%;
+    }
+
+    &.infobox-date {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    &.infobox-next {
+      text-align: right;
+      width: 30%;
+    }
+  }
+}
+
+// Election boxes with candidate columns get a little extra width, as on Wikipedia.
+:root body table.infobox.infobox.infobox-election {
+  width: 25em;
 }
 
 :root[saved-theme="dark"] body table.infobox.infobox {
@@ -194,7 +364,8 @@
 
 // On phones the box spans the full width above the article, like Wikipedia mobile.
 @media (max-width: 800px) {
-  :root body table.infobox.infobox {
+  :root body table.infobox.infobox,
+  :root body table.infobox.infobox.infobox-election {
     float: none;
     width: 100%;
     margin: 0 0 1em 0;

@@ -18,7 +18,14 @@ This adds an entry to `quartz.config.yaml` that places the infobox in the `befor
 
 ## Use
 
-Add `infobox: country` (or `nation`) to a page's frontmatter, then any of the fields below. Empty or missing fields are skipped, and a section bar only appears if something is under it.
+Add `infobox:` with a type to a page's frontmatter, then any of the fields below. Empty or missing fields are skipped, and a section bar only appears if something is under it.
+
+| `infobox:` | Also accepted | Modelled on Wikipedia's |
+|---|---|---|
+| `country` | `nation`, `former country` | Infobox country |
+| `person` | `officeholder`, `politician`, `royalty`, `monarch`, `military person`, `biography` | Infobox officeholder / royalty / military person |
+| `conflict` | `war`, `battle`, `military conflict` | Infobox military conflict |
+| `election` | `conclave` | Infobox election |
 
 ```yaml
 infobox: country
@@ -64,6 +71,86 @@ Wikilinks in YAML must be quoted (`"[[Mogharbura]]"`), otherwise YAML reads the 
 
 `N` is any whole number. Gaps are fine (1, 2, 5), and an unnumbered key counts as 1.
 
+Old Chronicler keys also work: `Full name`, `Official language`, `Religions`, `Government`, `Population`, and `image: [flag, map]` with `../` paths.
+
+## Person fields
+
+| Field | Shows as |
+|---|---|
+| `name` | Title (falls back to the page title) |
+| `honorific_prefix`, `honorific_suffix`, `native_name`, `subtitle` | Small lines above/below the title |
+| `image`, `image_caption` | Portrait |
+| `officeN` | Blue bar for each office held, in number order |
+| `orderN` | Shown before the office, e.g. `1st` |
+| `term_startN`, `term_endN` (or `termN`) | "In office" line, e.g. 1758 – 1774 |
+| `term_labelN` | Replaces "In office", e.g. `Reign` |
+| `coronationN`, `monarchN`, `presidentN`, `prime_ministerN`, `chancellorN`, `vice_presidentN`, `deputyN`, `governorN`, `regentN` | "Serving with" rows inside the office block |
+| `predecessorN`, `successorN` | Preceded by / Succeeded by |
+| `office_noteN` | Small italic note under the office |
+| `offices_held`, `titles_held` | Chronicler-style lists (see below) |
+| `born` (or `birth_name` + `birth_date` + `birth_place`) | |
+| `died` (or `death_date` + `death_place`), `cause_of_death`, `resting_place` | |
+| `nationality`, `citizenship`, `party`, `other_party` | |
+| `consort`, `spouse`, `partner`, `children`, `issue`, `parents`, `father`, `mother`, `relatives`, `family`, `house`, `dynasty` | Labels become plural for lists of several |
+| `religion`, `residence`, `education`, `alma_mater`, `occupation`, `profession`, `known_for`, `nickname`, `signature` | |
+| `allegiance`, `branch`, `years_of_service`, `rank`, `unit`, `commands`, `battles`, `awards` | "Military service" section |
+
+"Personal details" gets its own bar only when office blocks sit above it, as on Wikipedia.
+
+**Chronicler-style office lists.** Each item's first line becomes the office bar. `Label: value` lines become rows (the label can be a link), more-indented `* ` lines under a label join its value, lines containing a year become the term, and anything else becomes a small italic note:
+
+```yaml
+Offices held:
+  [
+    "**[[Chancellor of Vicus]]**
+
+      * 1819 - 1821
+
+      * [[King of Vicus|King]]: [[Avab II of Vicus|Avab II]]
+
+      * Preceded by: [[Toivan Slavari o-Sanctis]]"
+  ]
+```
+
+Also accepted: `Burial`, `Consorts`, `Service` (branch), `Combat` / `Conflicts` (battles), `Medals` (awards).
+
+## Conflict fields
+
+| Field | Shows as |
+|---|---|
+| `conflict` | Title (falls back to the page title) |
+| `part_of` | "Part of …" line under the title |
+| `other_names` | Italic line under the title |
+| `image`, `image_caption` | |
+| `date` (or `date_start` + `date_end`) | Combined as "1624 – 1635" when both are short, otherwise "Began" / "Ended" rows |
+| `place`, `status`, `result`, `territory`, `major_battles` | |
+| `combatantN` | "Belligerents": one column per side, as many sides as you number |
+| `commanderN`, `unitsN`, `strengthN`, `casualtiesN` | Same columns, under their own bars |
+| `casualties_note`, `notes` | Small notes at the bottom |
+
+A Chronicler `subtitle` becomes the "Part of" line if it starts with "Part of", otherwise an alternative name. Also accepted: `Beginning`, `End`, `Location`, `Outcome`, `Major Battles`, `Combatants 1`, `Commanders 1`, …
+
+Inside a column, a list item starting with `* ` is indented as a member of the line above it, and `**Supported by**` lines become bold sub-headings.
+
+## Election fields
+
+| Field | Shows as |
+|---|---|
+| `election_name` | Title (falls back to the page title); `subtitle` below it |
+| `previous_election`, `election_date`, `next_election` | "← 1692 · date · 1780 →" row |
+| `country`, `type`, `location`, `registered`, `electors`, `ballots`, `majority`, `turnout` | |
+| `candidateN`, `imageN` | Candidate columns (3 across; 4 split 2 + 2) |
+| `partyN`, `leaderN`, `running_mateN`, `home_stateN`, `votesN`, `percentageN`, `seatsN`, `seat_changeN`, `electoral_voteN`, `noteN` | Rows under each candidate |
+| `party_label`, `votes_label`, `seats_label` | Rename those rows, e.g. `School`, `Electors` for a conclave |
+| `office`, `before_election`, `before_party`, `after_election`, `after_party` | "{office} before election" / "Elected {office}" at the bottom |
+| `candidates` | Chronicler-style list: each item's first line is the name, `* ` lines below |
+
+Also accepted: `Previous`, `Next` (old arrows are removed), `Date`, `nomineeN`, `popular_voteN`, `schoolN`.
+
+## Fields an infobox doesn't know
+
+Nothing is dropped: any field a type doesn't recognize appears as a plain row at the bottom, labelled exactly as you wrote the key (`Emperors`, `Historical era`). Metadata such as `tags`, `aliases`, `title`, `date` and the old Chronicler `layout` block is never shown.
+
 ## Images
 
 Write image paths relative to the `content` folder, e.g. `img/flags/Vicus.png` for `content/img/flags/Vicus.png`. An image that hasn't been uploaded yet is hidden instead of showing a broken icon.
@@ -77,6 +164,10 @@ Write image paths relative to the `content` folder, e.g. `img/flags/Vicus.png` f
 ## Why the styles are inline
 
 Quartz wraps plugin CSS in a CSS `@layer`, and themes that ship unlayered stylesheets always beat layered CSS, which turned the box into a striped, low-contrast table. The plugin therefore renders its stylesheet as a `<style>` element next to the box.
+
+## Links
+
+Links follow Quartz's own "shortest path" rule, so `[[Mogharbura]]` finds `cities/Mogharbura.md` wherever it lives. Links to pages that don't exist yet are red. Quartz's automatic tag pages don't count as pages.
 
 ## Development
 
