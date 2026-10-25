@@ -1,0 +1,202 @@
+// Classic Wikipedia-style infobox. Colors follow Wikipedia's light theme and
+// its night theme when Quartz is in dark mode.
+//
+// Everything is scoped under `:root body table.infobox.infobox` so it outranks
+// Quartz themes that style every table (some use selectors as specific as
+// `html[saved-theme] body tbody tr:nth-child(odd)`).
+
+:root body table.infobox.infobox {
+  --ib-bg: #f8f9fa;
+  --ib-border: #a2a9b1;
+  --ib-text: #202122;
+  --ib-header-bg: #cedff2;
+  --ib-link: #3366cc;
+  --ib-redlink: #d73333;
+  --ib-muted: #54595d;
+
+  float: right;
+  clear: right;
+  width: 22em;
+  max-width: 100%;
+  margin: 0 0 1em 1.25em;
+  padding: 0.2em;
+  border: 1px solid var(--ib-border);
+  border-spacing: 3px;
+  border-collapse: separate;
+  background: var(--ib-bg);
+  color: var(--ib-text);
+  font-size: 88%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  line-height: 1.4em;
+  overflow-wrap: anywhere;
+  border-radius: 0;
+  margin-block: 0 1em;
+
+  tbody,
+  tr,
+  tbody tr:nth-child(odd),
+  tbody tr:nth-child(even) {
+    background: none;
+    border: none;
+    color: var(--ib-text);
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  caption.infobox-title {
+    caption-side: top;
+    padding: 0.2em 0.4em 0.3em;
+    font-size: 125%;
+    font-weight: bold;
+    line-height: 1.3em;
+    text-align: center;
+    color: var(--ib-text);
+  }
+
+  .infobox-native-name {
+    font-size: 80%;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  th,
+  td {
+    padding: 0.15em 0.3em;
+    border: none;
+    border-radius: 0;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: normal;
+    line-height: inherit;
+    vertical-align: top;
+    text-align: left;
+    background: none;
+    color: var(--ib-text);
+  }
+
+  th.infobox-label {
+    width: 40%;
+    font-weight: bold;
+  }
+
+  tr.infobox-subrow th.infobox-label {
+    font-weight: normal;
+    padding-left: 0.6em;
+  }
+
+  .infobox-bullet {
+    font-weight: bold;
+  }
+
+  th.infobox-header {
+    background: var(--ib-header-bg);
+    text-align: center;
+    font-weight: bold;
+    padding: 0.25em 0.4em;
+  }
+
+  td.infobox-full {
+    text-align: center;
+  }
+
+  td.infobox-note {
+    font-size: 90%;
+    color: var(--ib-muted);
+  }
+
+  .infobox-images figure {
+    margin: 0.25em auto;
+  }
+
+  .infobox-images figcaption {
+    font-size: 90%;
+    line-height: 1.3em;
+    padding-top: 0.2em;
+  }
+
+  .infobox-symbols {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    gap: 0.5em;
+
+    figure {
+      flex: 1 1 0;
+      margin: 0;
+    }
+  }
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+
+  img.infobox-flag {
+    max-height: 7em;
+    border: 1px solid var(--ib-border);
+  }
+
+  img.infobox-coat {
+    max-height: 7em;
+  }
+
+  img.infobox-map {
+    max-height: 18em;
+  }
+
+  ul.infobox-plainlist {
+    color: inherit;
+    line-height: inherit;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      line-height: inherit;
+      font-size: inherit;
+    }
+  }
+
+  a.internal {
+    color: var(--ib-link);
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-weight: normal;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  a.internal.infobox-redlink {
+    color: var(--ib-redlink);
+  }
+}
+
+:root[saved-theme="dark"] body table.infobox.infobox {
+  --ib-bg: #202122;
+  --ib-border: #54595d;
+  --ib-text: #eaecf0;
+  --ib-header-bg: #2c3a52;
+  --ib-link: #88a3e8;
+  --ib-redlink: #fd7865;
+  --ib-muted: #a2a9b1;
+}
+
+// On phones the box spans the full width above the article, like Wikipedia mobile.
+@media (max-width: 800px) {
+  :root body table.infobox.infobox {
+    float: none;
+    width: 100%;
+    margin: 0 0 1em 0;
+  }
+}
