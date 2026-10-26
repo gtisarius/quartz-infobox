@@ -373,3 +373,225 @@
     margin: 0 0 1em 0;
   }
 }
+
+// Colour swatches (ideology `colors:`) and links to the current page (bold, as on Wikipedia).
+:root body table.infobox.infobox {
+  .infobox-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15em 0.6em;
+  }
+
+  .infobox-swatch-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+  }
+
+  .infobox-swatch {
+    display: inline-block;
+    width: 1.1em;
+    height: 1.1em;
+    border: 1px solid var(--ib-border);
+  }
+
+  b.infobox-selflink {
+    font-weight: bold;
+  }
+}
+
+// "Part of a series on …" sidebar, after Wikipedia's {{Sidebar with collapsible lists}}.
+:root body aside.wiki-sidebar.wiki-sidebar {
+  --sb-bg: #f8f9fa;
+  --sb-border: #a2a9b1;
+  --sb-accent: #a2a9b1;
+  --sb-text: #202122;
+  --sb-link: #3366cc;
+  --sb-redlink: #d73333;
+
+  float: right;
+  clear: right;
+  width: 22em;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 1em 1.25em;
+  padding: 0.2em 0.4em 0.3em;
+  border: 1px solid var(--sb-accent);
+  background: var(--sb-bg);
+  color: var(--sb-text);
+  font-size: 88%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  line-height: 1.4em;
+  text-align: center;
+  overflow-wrap: anywhere;
+
+  * {
+    font-family: inherit;
+    color: inherit;
+  }
+
+  .sidebar-above {
+    padding-top: 0.2em;
+    font-size: 100%;
+  }
+
+  .sidebar-title {
+    font-size: 150%;
+    font-weight: bold;
+    line-height: 1.25em;
+    padding: 0.1em 0 0.3em;
+  }
+
+  .sidebar-figure {
+    margin: 0.2em auto 0.4em;
+
+    img.sidebar-image {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      max-height: 9em;
+      height: auto;
+      border-radius: 0;
+    }
+
+    figcaption {
+      font-size: 90%;
+      padding-top: 0.2em;
+    }
+  }
+
+  .sidebar-section {
+    border-top: 1px solid var(--sb-accent);
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar-heading {
+    position: relative;
+    display: block;
+    padding: 0.25em 3.4em;
+    font-weight: bold;
+    list-style: none;
+    cursor: default;
+
+    &::-webkit-details-marker,
+    &::marker {
+      display: none;
+      content: "";
+    }
+  }
+
+  summary.sidebar-heading {
+    cursor: pointer;
+  }
+
+  .sidebar-toggle {
+    position: absolute;
+    right: 0.1em;
+    top: 0.25em;
+    font-weight: normal;
+    font-size: 95%;
+
+    .sidebar-show,
+    .sidebar-hide {
+      color: var(--sb-link);
+    }
+  }
+
+  details[open] > summary .sidebar-show,
+  details:not([open]) > summary .sidebar-hide {
+    display: none;
+  }
+
+  .sidebar-content {
+    padding: 0.1em 0 0.4em;
+  }
+
+  .sidebar-subheading {
+    font-weight: bold;
+    padding-top: 0.2em;
+  }
+
+  ul.sidebar-hlist {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: inline;
+      margin: 0;
+      padding: 0;
+      white-space: normal;
+
+      &::before {
+        content: none;
+      }
+
+      & + li::before {
+        content: " · ";
+        font-weight: bold;
+      }
+    }
+  }
+
+  .sidebar-footer {
+    border-top: 1px solid var(--sb-accent);
+    padding: 0.3em 0;
+  }
+
+  .sidebar-navbar {
+    border-top: 1px solid var(--sb-accent);
+    padding-top: 0.15em;
+    text-align: right;
+    font-size: 80%;
+  }
+
+  a.internal {
+    color: var(--sb-link);
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-weight: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  a.internal.infobox-redlink {
+    color: var(--sb-redlink);
+  }
+
+  b,
+  strong {
+    font-weight: bold;
+  }
+
+  i,
+  em {
+    font-style: italic;
+  }
+}
+
+:root[saved-theme="dark"] body aside.wiki-sidebar.wiki-sidebar {
+  --sb-bg: #202122;
+  --sb-border: #54595d;
+  --sb-text: #eaecf0;
+  --sb-link: #88a3e8;
+  --sb-redlink: #fd7865;
+}
+
+// The default accent follows the theme; a series' own `color:` overrides it inline.
+:root[saved-theme="dark"] body aside.wiki-sidebar.wiki-sidebar:not([style]) {
+  --sb-accent: #54595d;
+}
+
+@media (max-width: 800px) {
+  :root body aside.wiki-sidebar.wiki-sidebar {
+    float: none;
+    width: 100%;
+    margin: 0 0 1em 0;
+  }
+}

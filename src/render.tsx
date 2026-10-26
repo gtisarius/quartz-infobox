@@ -88,10 +88,31 @@ export function numberedGroups(fields: Fields, bases: string[]): Record<string, 
 const WIKILINK = /\[\[([^[\]]+?)\]\]/g;
 
 /** Find the page a wikilink points at, using Quartz's "shortest path" rule. */
+/** The slug of the page a wikilink target points at, or undefined if there isn't exactly one. */
+export function findSlug(target: string, ctx: RenderCtx): FullSlug | undefined {
+  const page = target.split("#")[0]!.replace(/[*_]+/g, "").trim();
+  if (page === "") return ctx.src;
+  const slug = slugifyFilePath(`${page}.md` as FilePath);
+  const matches = ctx.allSlugs.filter((candidate) =>
+    slug.includes("/")
+      ? candidate === slug || candidate.endsWith(`/${slug}`)
+      : candidate.split("/").at(-1) === slug,
+  );
+  return matches.length === 1 ? matches[0] : undefined;
+}
+
+/** Every wikilink target in a value (strings and lists, any depth). */
+export function linkTargets(value: unknown): string[] {
+  if (Array.isArray(value)) return value.flatMap(linkTargets);
+  if (typeof value !== "string") return [];
+  return [...value.matchAll(WIKILINK)].map((m) => m[1]!.split("|")[0]!.trim());
+}
+
+/** Find the page a wikilink points at, using Quartz's "shortest path" rule. */
 export function resolveWikilink(
   target: string,
   ctx: RenderCtx,
-): { href: string; exists: boolean } {
+): { href: string; exists: boolean; self: boolean } {
   const hashAt = target.indexOf("#");
   const page = (hashAt === -1 ? target : target.slice(0, hashAt)).trim();
   const heading = hashAt === -1 ? "" : target.slice(hashAt + 1).trim();
@@ -104,7 +125,7 @@ export function resolveWikilink(
         .replace(/\s+/g, "-")
     : "";
 
-  if (page === "") return { href: anchor, exists: true };
+  if (page === "") return { href: anchor, exists: true, self: false };
 
   const slug = slugifyFilePath(`${page}.md` as FilePath);
   const matches = ctx.allSlugs.filter((candidate) =>
@@ -114,11 +135,16 @@ export function resolveWikilink(
   );
 
   if (matches.length === 1) {
-    return { href: resolveRelative(ctx.src, matches[0]!) + anchor, exists: true };
+    return {
+      href: resolveRelative(ctx.src, matches[0]!) + anchor,
+      exists: true,
+      self: matches[0] === ctx.src && anchor === "",
+    };
   }
   return {
     href: joinSegments(pathToRoot(ctx.src), slug) + anchor,
     exists: matches.length > 1,
+    self: false,
   };
 }
 
@@ -167,7 +193,15 @@ function renderLink(inner: string, ctx: RenderCtx, key: string): ComponentChildr
   const target = rawTarget.replace(/[*_]+/g, "").trim();
   const labelText = pipe === -1 ? rawTarget.replace(/#/, " › ") : inner.slice(pipe + 1).trim();
   const label = renderEmphasis(labelText, `${key}lab`);
-  const { href, exists } = resolveWikilink(target, ctx);
+  const { href, exists, self } = resolveWikilink(target, ctx);
+  // A link to the page you're on is shown in bold instead, as on Wikipedia.
+  if (self) {
+    return (
+      <b key={key} class="infobox-selflink">
+        {label}
+      </b>
+    );
+  }
   return exists ? (
     <a key={key} href={href} class="internal">
       {label}

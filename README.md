@@ -26,6 +26,10 @@ Add `infobox:` with a type to a page's frontmatter, then any of the fields below
 | `person` | `officeholder`, `politician`, `royalty`, `monarch`, `military person`, `biography` | Infobox officeholder / royalty / military person |
 | `conflict` | `war`, `battle`, `military conflict` | Infobox military conflict |
 | `election` | `conclave` | Infobox election |
+| `religion` | `religious organization`, `denomination`, `church` | Infobox religion |
+| `ideology` | `political ideology`, `philosophy`, `school of thought` | Infobox political party / philosophy |
+| `generic` | `other` | Every field as a plain row, in the order written |
+| `series` | | Defines a "Part of a series on …" sidebar (see below) |
 
 ```yaml
 infobox: country
@@ -146,6 +150,66 @@ Inside a column, a list item starting with `* ` is indented as a member of the l
 | `candidates` | Chronicler-style list: each item's first line is the name, `* ` lines below |
 
 Also accepted: `Previous`, `Next` (old arrows are removed), `Date`, `nomineeN`, `popular_voteN`, `schoolN`.
+
+## Religion fields
+
+Rows appear in Wikipedia's "Infobox religion" order. Your Chronicler keys work as written, and "Separated or inspired from" keeps its own label.
+
+| Field | Shows as |
+|---|---|
+| `name` | Title (falls back to the page title); `native_name`, `subtitle` below it |
+| `image`, `image_caption` | |
+| `abbreviation`, `type`, `classification`, `orientation` | |
+| `scripture`, `theology`, `polity`, `governance`, `structure` | |
+| `leader_titleN` + `leader_nameN` | One row per leader, labelled with the title |
+| `fellowships`, `associations`, `region`, `language` / `languages`, `liturgy`, `headquarters`, `territory`, `possessions` | |
+| `founder` / `founders` | |
+| `origin` (or `founded_date` + `founded_place`) | "Origin" |
+| `independence`, `recognition` | |
+| `branched_from`, `separated_from`, `separated_or_inspired_from`, `inspired_by`, `merger`, `absorbed` | |
+| `separations`, `merged_into`, `defunct`, `denominations`, `branches`, `schools` | |
+| `congregations`, `members`, `adherents`, `clergy`, `other_names` | |
+
+A box with no filled-in fields isn't drawn at all.
+
+## Ideology fields
+
+| Field | Shows as |
+|---|---|
+| `name`, `native_name`, `subtitle`, `image`, `image_caption` | |
+| `other_names`, `parent` (or `part_of`), `founders`, `founded`, `origin`, `key_figures` | Top rows |
+| `key_ideas` (or `tenets`), `political_position`, `economics`, `religion`, `variants` | "Beliefs" section |
+| `influenced_by`, `influenced`, `related`, `opposed_to`, `parties`, `organizations` | "Relationships" section |
+| `colors` | Swatches: each item is `"#cc0000"`, `"Red #cc0000"`, or a colour name |
+| `symbol`, `slogan`, `anthem` | "Symbols" section |
+
+## Series sidebars ("Part of a series on …")
+
+Define a series once, on its own page (for example `content/series/Avabism.md`):
+
+```yaml
+---
+infobox: series
+title: Avabism (series)
+name: Avabism                  # what other pages write in `series:`
+main: "[[Avabism]]"            # optional: the big title links here (defaults to the page named like the series)
+image: img/symbols/avabism.png # optional
+color: "#b8860b"               # optional accent colour for the border and dividers
+Denominations: [ "[[Zascaic Temple|Zascaism]]", "[[Possessionism]]" ]
+"[[History of Avabism|History]]": [ "[[Avab]]", "**Modern era**", "[[Second Fall of Morev]]" ]
+footer: [ "[[Avabism portal]]" ]
+---
+```
+
+Every key other than the settings above becomes a section, in the order written. A heading can itself be a link (quote the key, as above). Inside a section, items are listed with `·` between them, and a `**bold**` item starts a sub-heading.
+
+Then add one line to any page that belongs to the series:
+
+```yaml
+series: Avabism          # or a list: [ Avabism, Shazism ]
+```
+
+The sidebar appears under the page's infobox (or on its own if there isn't one). The section that links to the page you're on starts open and that link is shown in bold; the rest start collapsed with **[show]**. Set `collapsible: false` on the series page to show everything open. The series page itself shows a preview of the sidebar.
 
 ## Fields an infobox doesn't know
 

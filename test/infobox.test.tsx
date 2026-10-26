@@ -40,7 +40,7 @@ describe("numberedGroups", () => {
 
 describe("resolveWikilink", () => {
   it("finds pages by file name, case-insensitively", () => {
-    expect(resolveWikilink("Mogharbura", ctx)).toEqual({ href: "../cities/mogharbura", exists: true });
+    expect(resolveWikilink("Mogharbura", ctx)).toEqual({ href: "../cities/mogharbura", exists: true, self: false });
   });
   it("marks missing pages", () => {
     expect(resolveWikilink("Bazalagard", ctx).exists).toBe(false);
@@ -271,5 +271,123 @@ describe("stylesheets", () => {
     expect(on.css.every((c) => c.inline)).toBe(true);
     expect(off.css).toHaveLength(1);
     expect(typeof InfoboxStyles().htmlPlugins).toBe("function");
+  });
+});
+
+describe("religion", () => {
+  it("reads the Chronicler religion keys in Wikipedia order, keeping your labels", () => {
+    const html = renderPage({
+      infobox: "religion",
+      title: "Avabism",
+      Scripture: "[[Zascas]]",
+      Theology: "Monotheistic/Dualistic",
+      Region: ["West [[Zavoia]]", "[[Asmaria]]"],
+      Languages: "[[Zascaic Artian]]",
+      Founder: "[[Avab]]",
+      Origin: "882, [[Mount Adalat]]",
+      "Separated or inspired from": ["[[Shan Shazism]]"],
+      Separations: ["[[Grondism]]"],
+      Denominations: ["[[Zascaic Temple|Zascaism]]"],
+    });
+    const order = ["Scripture", "Theology", "Region", "Languages", "Founder", "Origin", "Separated or inspired from", "Separations", "Denominations"];
+    const at = order.map((label) => html.indexOf(`>${label}<`));
+    expect(at.every((i) => i > 0)).toBe(true);
+    expect([...at].sort((a, b) => a - b)).toEqual(at);
+    expect(html).toContain("infobox-religion");
+  });
+
+  it("builds Origin from founded_date + founded_place and numbers leaders", () => {
+    const html = renderPage({
+      infobox: "religion",
+      founded_date: "882",
+      founded_place: "[[Mount Adalat]]",
+      leader_title1: "Zaphken",
+      leader_name1: "[[Zaphken Kubael]]",
+    });
+    expect(html).toContain(">Origin<");
+    expect(html).toContain(">Zaphken<");
+  });
+});
+
+describe("ideology", () => {
+  it("groups fields and draws colour swatches", () => {
+    const html = renderPage({
+      infobox: "ideology",
+      title: "Adobeanism",
+      founders: ["[[Toivan Tallabold]]"],
+      key_ideas: ["Suffrage", "Land reform"],
+      influenced: ["[[Tallaboldism]]"],
+      colors: ["Red #cc0000", "#000000"],
+      slogan: "Something",
+    });
+    expect(html).toContain(">Founders<");
+    expect(html).toContain(">Beliefs<");
+    expect(html).toContain(">Relationships<");
+    expect(html).toContain("background:#cc0000");
+    expect(html).toContain("background:#000000");
+    expect(html).toContain(">Slogan<");
+  });
+});
+
+describe("series sidebar", () => {
+  const seriesPage = {
+    slug: "series/avabism",
+    frontmatter: {
+      infobox: "series",
+      name: "Avabism",
+      color: "#b8860b",
+      Denominations: ["[[Zascaic Temple|Zascaism]]", "[[Possessionism]]"],
+      "[[History of Avabism|History]]": ["[[Avab]]", "**Modern**", "[[Second Fall of Morev]]"],
+      footer: ["[[Avabism portal]]"],
+    },
+  };
+  const files = [
+    { slug: "series/avabism", frontmatter: seriesPage.frontmatter },
+    { slug: "religions/avabism", frontmatter: {} },
+    { slug: "religions/zascaic-temple", frontmatter: {} },
+  ];
+  const renderOn = (slug: string, frontmatter: Record<string, unknown>) => {
+    const vnode = Infobox()({ fileData: { slug, frontmatter }, allFiles: files } as never);
+    return vnode ? render(vnode as Parameters<typeof render>[0]) : "";
+  };
+
+  it("shows on pages that join it, opening the section that links to the page", () => {
+    const html = renderOn("religions/zascaic-temple", { series: "Avabism" });
+    expect(html).toContain("Part of a series on");
+    expect(html).toContain('href="../religions/avabism"'); // title links to the main page
+    expect(html).toMatch(/<details class="sidebar-section" open[^>]*>\s*<summary[^>]*>.*Denominations/s);
+    expect(html).toContain('<b class="infobox-selflink">Zascaism</b>');
+    expect(html).toContain("--sb-accent:#b8860b");
+    expect(html).toContain("sidebar-subheading");
+    expect(html).toContain(">History<"); // linked heading
+    expect(html).toContain(">view<");
+  });
+
+  it("works with an infobox on the same page, and with link-style series names", () => {
+    const html = renderOn("religions/avabism", { infobox: "religion", Founder: "[[Avab]]", series: ["[[Avabism (series)|Avabism]]"] });
+    expect(html).toContain("infobox-religion");
+    expect(html).toContain("wiki-sidebar");
+    expect(html).not.toContain(">series<"); // `series:` is not an extra infobox row
+  });
+
+  it("previews itself on the series page, and ignores unknown series", () => {
+    expect(renderOn("series/avabism", seriesPage.frontmatter)).toContain("wiki-sidebar");
+    expect(renderOn("religions/avabism", { series: "Nonexistent" })).toBe("");
+  });
+});
+
+describe("empty boxes", () => {
+  it("draws no religion or ideology box when every field is empty", () => {
+    expect(renderPage({ infobox: "religion", title: "Zascaic Temple", Classification: "" })).toBe("");
+    expect(renderPage({ infobox: "ideology", title: "X", key_ideas: [] })).toBe("");
+  });
+});
+
+describe("generic", () => {
+  it("lists every field in order with its original label", () => {
+    const html = renderPage({ infobox: "generic", title: "King of Vicus", tags: ["x"], "First holder": "[[Sagismar the Tall]]", Residence: "Mogharbura" });
+    expect(html).toContain("infobox-generic");
+    expect(html.indexOf(">First holder<")).toBeLessThan(html.indexOf(">Residence<"));
+    expect(html).not.toContain(">tags<");
   });
 });

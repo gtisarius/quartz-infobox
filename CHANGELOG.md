@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.4.0
+
+- New `religion` infobox (Wikipedia's Infobox religion order; reads the Chronicler religion keys as written).
+- New `ideology` infobox with Beliefs / Relationships / Symbols sections and colour swatches.
+- New `generic` infobox: every field as a row.
+- New "Part of a series on …" sidebars: defined once with `infobox: series`, shown on any page with `series:`. Collapsible sections, current page bold and its section open, optional accent colour.
+- Links to the page you're on are shown in bold instead of as a link.
+- Religion, ideology and generic boxes with no filled-in fields are not drawn.
+
 ## 0.3.0
 
 - Wikipedia-style article links: blue for existing pages, red for missing ones, no highlight boxes (`wikiLinks: false` turns this off). Needs `disableBrokenWikilinks: true` on the crawl-links plugin for the red links.

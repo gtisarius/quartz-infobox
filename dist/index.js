@@ -3,7 +3,7 @@ import { createRequire } from 'module';
 createRequire(import.meta.url);
 
 // src/components/styles/infobox.scss
-var infobox_default = '@charset "UTF-8";\n:root body table.infobox.infobox {\n  --ib-bg: #f8f9fa;\n  --ib-border: #a2a9b1;\n  --ib-text: #202122;\n  --ib-header-bg: #cedff2;\n  --ib-link: #3366cc;\n  --ib-redlink: #d73333;\n  --ib-muted: #54595d;\n  float: right;\n  clear: right;\n  width: 22em;\n  max-width: 100%;\n  margin: 0 0 1em 1.25em;\n  padding: 0.2em;\n  border: 1px solid var(--ib-border);\n  border-spacing: 3px;\n  border-collapse: separate;\n  background: var(--ib-bg);\n  color: var(--ib-text);\n  font-size: 88%;\n  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;\n  line-height: 1.4em;\n  overflow-wrap: anywhere;\n  border-radius: 0;\n  margin-block: 0 1em;\n}\n:root body table.infobox.infobox tbody,\n:root body table.infobox.infobox tr,\n:root body table.infobox.infobox tbody tr:nth-child(odd),\n:root body table.infobox.infobox tbody tr:nth-child(even) {\n  background: none;\n  border: none;\n  color: var(--ib-text);\n  font-family: inherit;\n  font-size: inherit;\n  line-height: inherit;\n}\n:root body table.infobox.infobox caption.infobox-title {\n  caption-side: top;\n  padding: 0.2em 0.4em 0.3em;\n  font-size: 125%;\n  font-weight: bold;\n  line-height: 1.3em;\n  text-align: center;\n  color: var(--ib-text);\n}\n:root body table.infobox.infobox .infobox-native-name {\n  font-size: 80%;\n  font-weight: normal;\n  font-style: italic;\n}\n:root body table.infobox.infobox th,\n:root body table.infobox.infobox td {\n  padding: 0.15em 0.3em;\n  border: none;\n  border-radius: 0;\n  font-family: inherit;\n  font-size: inherit;\n  font-weight: normal;\n  line-height: inherit;\n  vertical-align: top;\n  text-align: left;\n  background: none;\n  color: var(--ib-text);\n}\n:root body table.infobox.infobox th.infobox-label {\n  width: 40%;\n  font-weight: bold;\n}\n:root body table.infobox.infobox tr.infobox-subrow th.infobox-label {\n  font-weight: normal;\n  padding-left: 0.6em;\n}\n:root body table.infobox.infobox .infobox-bullet {\n  font-weight: bold;\n}\n:root body table.infobox.infobox th.infobox-header {\n  background: var(--ib-header-bg);\n  text-align: center;\n  font-weight: bold;\n  padding: 0.25em 0.4em;\n}\n:root body table.infobox.infobox td.infobox-full {\n  text-align: center;\n}\n:root body table.infobox.infobox td.infobox-note {\n  font-size: 90%;\n  color: var(--ib-muted);\n}\n:root body table.infobox.infobox .infobox-images figure {\n  margin: 0.25em auto;\n}\n:root body table.infobox.infobox .infobox-images figcaption {\n  text-align: center;\n  color: var(--ib-text);\n  font-size: 90%;\n  line-height: 1.3em;\n  padding-top: 0.2em;\n}\n:root body table.infobox.infobox .infobox-symbols {\n  display: flex;\n  justify-content: space-around;\n  align-items: flex-end;\n  gap: 0.5em;\n}\n:root body table.infobox.infobox .infobox-symbols figure {\n  flex: 1 1 0;\n  margin: 0;\n}\n:root body table.infobox.infobox img {\n  display: block;\n  margin: 0 auto;\n  max-width: 100%;\n  height: auto;\n  border-radius: 0;\n}\n:root body table.infobox.infobox img.infobox-flag {\n  max-height: 7em;\n  border: 1px solid var(--ib-border);\n}\n:root body table.infobox.infobox img.infobox-coat {\n  max-height: 7em;\n}\n:root body table.infobox.infobox img.infobox-map {\n  max-height: 18em;\n}\n:root body table.infobox.infobox ul.infobox-plainlist {\n  color: inherit;\n  line-height: inherit;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n:root body table.infobox.infobox ul.infobox-plainlist li {\n  margin: 0;\n  padding-top: 0;\n  padding-bottom: 0;\n  color: inherit;\n  line-height: inherit;\n  font-size: inherit;\n}\n:root body table.infobox.infobox a.internal {\n  color: var(--ib-link);\n  background: none;\n  padding: 0;\n  border-radius: 0;\n  font-weight: normal;\n  text-decoration: none;\n}\n:root body table.infobox.infobox a.internal:hover {\n  text-decoration: underline;\n}\n:root body table.infobox.infobox a.internal.infobox-redlink {\n  color: var(--ib-redlink);\n}\n:root body table.infobox.infobox th a.internal,\n:root body table.infobox.infobox b a.internal,\n:root body table.infobox.infobox strong a.internal {\n  font-weight: inherit;\n}\n:root body table.infobox.infobox .infobox-above {\n  font-size: 80%;\n  font-weight: normal;\n}\n:root body table.infobox.infobox b,\n:root body table.infobox.infobox strong,\n:root body table.infobox.infobox i,\n:root body table.infobox.infobox em {\n  font-family: inherit;\n  font-size: inherit;\n  color: inherit;\n}\n:root body table.infobox.infobox b,\n:root body table.infobox.infobox strong {\n  font-weight: bold;\n}\n:root body table.infobox.infobox i,\n:root body table.infobox.infobox em {\n  font-style: italic;\n}\n:root body table.infobox.infobox .infobox-line {\n  display: block;\n}\n:root body table.infobox.infobox .infobox-sub,\n:root body table.infobox.infobox ul.infobox-plainlist li.infobox-sub {\n  display: block;\n  padding-left: 0.9em;\n  text-indent: -0.6em;\n}\n:root body table.infobox.infobox .infobox-sub::before,\n:root body table.infobox.infobox ul.infobox-plainlist li.infobox-sub::before {\n  content: "\u2022 ";\n}\n:root body table.infobox.infobox .infobox-sub-2 {\n  margin-left: 0.9em;\n}\n:root body table.infobox.infobox .infobox-sub-3 {\n  margin-left: 1.8em;\n}\n:root body table.infobox.infobox th.infobox-header.infobox-office {\n  font-weight: bold;\n}\n:root body table.infobox.infobox td.infobox-term {\n  text-align: center;\n}\n:root body table.infobox.infobox td.infobox-note {\n  text-align: center;\n  font-style: italic;\n}\n:root body table.infobox.infobox .infobox-signature-label {\n  font-weight: bold;\n}\n:root body table.infobox.infobox img.infobox-image {\n  max-height: 20em;\n}\n:root body table.infobox.infobox img.infobox-signature {\n  max-height: 4em;\n}\n:root body table.infobox.infobox td.infobox-partof {\n  text-align: center;\n  font-size: 95%;\n}\n:root body table.infobox.infobox td.infobox-columns-cell {\n  padding: 0;\n}\n:root body table.infobox.infobox table.infobox-columns,\n:root body table.infobox.infobox table.infobox-grid,\n:root body table.infobox.infobox table.infobox-succession {\n  width: 100%;\n  margin: 0;\n  padding: 0;\n  border: none;\n  border-collapse: collapse;\n  border-spacing: 0;\n  background: none;\n  font: inherit;\n  color: inherit;\n  table-layout: fixed;\n  float: none;\n}\n:root body table.infobox.infobox table.infobox-columns td {\n  vertical-align: top;\n  padding: 0.2em 0.35em;\n}\n:root body table.infobox.infobox table.infobox-columns td + td {\n  border-left: 1px solid var(--ib-border);\n}\n:root body table.infobox.infobox table.infobox-grid th {\n  width: 28%;\n  font-weight: bold;\n  vertical-align: top;\n}\n:root body table.infobox.infobox table.infobox-grid td {\n  text-align: center;\n  vertical-align: top;\n}\n:root body table.infobox.infobox table.infobox-grid td.infobox-grid-head {\n  vertical-align: bottom;\n}\n:root body table.infobox.infobox .infobox-candidate-name {\n  font-weight: bold;\n}\n:root body table.infobox.infobox img.infobox-candidate-image {\n  max-height: 9em;\n  margin-bottom: 0.2em;\n}\n:root body table.infobox.infobox table.infobox-succession td {\n  vertical-align: middle;\n}\n:root body table.infobox.infobox table.infobox-succession td.infobox-prev {\n  text-align: left;\n  width: 30%;\n}\n:root body table.infobox.infobox table.infobox-succession td.infobox-date {\n  text-align: center;\n  font-weight: bold;\n}\n:root body table.infobox.infobox table.infobox-succession td.infobox-next {\n  text-align: right;\n  width: 30%;\n}\n\n:root body table.infobox.infobox.infobox-election {\n  width: 25em;\n}\n\n:root[saved-theme=dark] body table.infobox.infobox {\n  --ib-bg: #202122;\n  --ib-border: #54595d;\n  --ib-text: #eaecf0;\n  --ib-header-bg: #2c3a52;\n  --ib-link: #88a3e8;\n  --ib-redlink: #fd7865;\n  --ib-muted: #a2a9b1;\n}\n\n@media (max-width: 800px) {\n  :root body table.infobox.infobox,\n  :root body table.infobox.infobox.infobox-election {\n    float: none;\n    width: 100%;\n    margin: 0 0 1em 0;\n  }\n}';
+var infobox_default = '@charset "UTF-8";\n:root body table.infobox.infobox {\n  --ib-bg: #f8f9fa;\n  --ib-border: #a2a9b1;\n  --ib-text: #202122;\n  --ib-header-bg: #cedff2;\n  --ib-link: #3366cc;\n  --ib-redlink: #d73333;\n  --ib-muted: #54595d;\n  float: right;\n  clear: right;\n  width: 22em;\n  max-width: 100%;\n  margin: 0 0 1em 1.25em;\n  padding: 0.2em;\n  border: 1px solid var(--ib-border);\n  border-spacing: 3px;\n  border-collapse: separate;\n  background: var(--ib-bg);\n  color: var(--ib-text);\n  font-size: 88%;\n  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;\n  line-height: 1.4em;\n  overflow-wrap: anywhere;\n  border-radius: 0;\n  margin-block: 0 1em;\n}\n:root body table.infobox.infobox tbody,\n:root body table.infobox.infobox tr,\n:root body table.infobox.infobox tbody tr:nth-child(odd),\n:root body table.infobox.infobox tbody tr:nth-child(even) {\n  background: none;\n  border: none;\n  color: var(--ib-text);\n  font-family: inherit;\n  font-size: inherit;\n  line-height: inherit;\n}\n:root body table.infobox.infobox caption.infobox-title {\n  caption-side: top;\n  padding: 0.2em 0.4em 0.3em;\n  font-size: 125%;\n  font-weight: bold;\n  line-height: 1.3em;\n  text-align: center;\n  color: var(--ib-text);\n}\n:root body table.infobox.infobox .infobox-native-name {\n  font-size: 80%;\n  font-weight: normal;\n  font-style: italic;\n}\n:root body table.infobox.infobox th,\n:root body table.infobox.infobox td {\n  padding: 0.15em 0.3em;\n  border: none;\n  border-radius: 0;\n  font-family: inherit;\n  font-size: inherit;\n  font-weight: normal;\n  line-height: inherit;\n  vertical-align: top;\n  text-align: left;\n  background: none;\n  color: var(--ib-text);\n}\n:root body table.infobox.infobox th.infobox-label {\n  width: 40%;\n  font-weight: bold;\n}\n:root body table.infobox.infobox tr.infobox-subrow th.infobox-label {\n  font-weight: normal;\n  padding-left: 0.6em;\n}\n:root body table.infobox.infobox .infobox-bullet {\n  font-weight: bold;\n}\n:root body table.infobox.infobox th.infobox-header {\n  background: var(--ib-header-bg);\n  text-align: center;\n  font-weight: bold;\n  padding: 0.25em 0.4em;\n}\n:root body table.infobox.infobox td.infobox-full {\n  text-align: center;\n}\n:root body table.infobox.infobox td.infobox-note {\n  font-size: 90%;\n  color: var(--ib-muted);\n}\n:root body table.infobox.infobox .infobox-images figure {\n  margin: 0.25em auto;\n}\n:root body table.infobox.infobox .infobox-images figcaption {\n  text-align: center;\n  color: var(--ib-text);\n  font-size: 90%;\n  line-height: 1.3em;\n  padding-top: 0.2em;\n}\n:root body table.infobox.infobox .infobox-symbols {\n  display: flex;\n  justify-content: space-around;\n  align-items: flex-end;\n  gap: 0.5em;\n}\n:root body table.infobox.infobox .infobox-symbols figure {\n  flex: 1 1 0;\n  margin: 0;\n}\n:root body table.infobox.infobox img {\n  display: block;\n  margin: 0 auto;\n  max-width: 100%;\n  height: auto;\n  border-radius: 0;\n}\n:root body table.infobox.infobox img.infobox-flag {\n  max-height: 7em;\n  border: 1px solid var(--ib-border);\n}\n:root body table.infobox.infobox img.infobox-coat {\n  max-height: 7em;\n}\n:root body table.infobox.infobox img.infobox-map {\n  max-height: 18em;\n}\n:root body table.infobox.infobox ul.infobox-plainlist {\n  color: inherit;\n  line-height: inherit;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n:root body table.infobox.infobox ul.infobox-plainlist li {\n  margin: 0;\n  padding-top: 0;\n  padding-bottom: 0;\n  color: inherit;\n  line-height: inherit;\n  font-size: inherit;\n}\n:root body table.infobox.infobox a.internal {\n  color: var(--ib-link);\n  background: none;\n  padding: 0;\n  border-radius: 0;\n  font-weight: normal;\n  text-decoration: none;\n}\n:root body table.infobox.infobox a.internal:hover {\n  text-decoration: underline;\n}\n:root body table.infobox.infobox a.internal.infobox-redlink {\n  color: var(--ib-redlink);\n}\n:root body table.infobox.infobox th a.internal,\n:root body table.infobox.infobox b a.internal,\n:root body table.infobox.infobox strong a.internal {\n  font-weight: inherit;\n}\n:root body table.infobox.infobox .infobox-above {\n  font-size: 80%;\n  font-weight: normal;\n}\n:root body table.infobox.infobox b,\n:root body table.infobox.infobox strong,\n:root body table.infobox.infobox i,\n:root body table.infobox.infobox em {\n  font-family: inherit;\n  font-size: inherit;\n  color: inherit;\n}\n:root body table.infobox.infobox b,\n:root body table.infobox.infobox strong {\n  font-weight: bold;\n}\n:root body table.infobox.infobox i,\n:root body table.infobox.infobox em {\n  font-style: italic;\n}\n:root body table.infobox.infobox .infobox-line {\n  display: block;\n}\n:root body table.infobox.infobox .infobox-sub,\n:root body table.infobox.infobox ul.infobox-plainlist li.infobox-sub {\n  display: block;\n  padding-left: 0.9em;\n  text-indent: -0.6em;\n}\n:root body table.infobox.infobox .infobox-sub::before,\n:root body table.infobox.infobox ul.infobox-plainlist li.infobox-sub::before {\n  content: "\u2022 ";\n}\n:root body table.infobox.infobox .infobox-sub-2 {\n  margin-left: 0.9em;\n}\n:root body table.infobox.infobox .infobox-sub-3 {\n  margin-left: 1.8em;\n}\n:root body table.infobox.infobox th.infobox-header.infobox-office {\n  font-weight: bold;\n}\n:root body table.infobox.infobox td.infobox-term {\n  text-align: center;\n}\n:root body table.infobox.infobox td.infobox-note {\n  text-align: center;\n  font-style: italic;\n}\n:root body table.infobox.infobox .infobox-signature-label {\n  font-weight: bold;\n}\n:root body table.infobox.infobox img.infobox-image {\n  max-height: 20em;\n}\n:root body table.infobox.infobox img.infobox-signature {\n  max-height: 4em;\n}\n:root body table.infobox.infobox td.infobox-partof {\n  text-align: center;\n  font-size: 95%;\n}\n:root body table.infobox.infobox td.infobox-columns-cell {\n  padding: 0;\n}\n:root body table.infobox.infobox table.infobox-columns,\n:root body table.infobox.infobox table.infobox-grid,\n:root body table.infobox.infobox table.infobox-succession {\n  width: 100%;\n  margin: 0;\n  padding: 0;\n  border: none;\n  border-collapse: collapse;\n  border-spacing: 0;\n  background: none;\n  font: inherit;\n  color: inherit;\n  table-layout: fixed;\n  float: none;\n}\n:root body table.infobox.infobox table.infobox-columns td {\n  vertical-align: top;\n  padding: 0.2em 0.35em;\n}\n:root body table.infobox.infobox table.infobox-columns td + td {\n  border-left: 1px solid var(--ib-border);\n}\n:root body table.infobox.infobox table.infobox-grid th {\n  width: 28%;\n  font-weight: bold;\n  vertical-align: top;\n}\n:root body table.infobox.infobox table.infobox-grid td {\n  text-align: center;\n  vertical-align: top;\n}\n:root body table.infobox.infobox table.infobox-grid td.infobox-grid-head {\n  vertical-align: bottom;\n}\n:root body table.infobox.infobox .infobox-candidate-name {\n  font-weight: bold;\n}\n:root body table.infobox.infobox img.infobox-candidate-image {\n  max-height: 9em;\n  margin-bottom: 0.2em;\n}\n:root body table.infobox.infobox table.infobox-succession td {\n  vertical-align: middle;\n}\n:root body table.infobox.infobox table.infobox-succession td.infobox-prev {\n  text-align: left;\n  width: 30%;\n}\n:root body table.infobox.infobox table.infobox-succession td.infobox-date {\n  text-align: center;\n  font-weight: bold;\n}\n:root body table.infobox.infobox table.infobox-succession td.infobox-next {\n  text-align: right;\n  width: 30%;\n}\n\n:root body table.infobox.infobox.infobox-election {\n  width: 25em;\n}\n\n:root[saved-theme=dark] body table.infobox.infobox {\n  --ib-bg: #202122;\n  --ib-border: #54595d;\n  --ib-text: #eaecf0;\n  --ib-header-bg: #2c3a52;\n  --ib-link: #88a3e8;\n  --ib-redlink: #fd7865;\n  --ib-muted: #a2a9b1;\n}\n\n@media (max-width: 800px) {\n  :root body table.infobox.infobox,\n  :root body table.infobox.infobox.infobox-election {\n    float: none;\n    width: 100%;\n    margin: 0 0 1em 0;\n  }\n}\n:root body table.infobox.infobox .infobox-swatches {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.15em 0.6em;\n}\n:root body table.infobox.infobox .infobox-swatch-item {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.3em;\n}\n:root body table.infobox.infobox .infobox-swatch {\n  display: inline-block;\n  width: 1.1em;\n  height: 1.1em;\n  border: 1px solid var(--ib-border);\n}\n:root body table.infobox.infobox b.infobox-selflink {\n  font-weight: bold;\n}\n\n:root body aside.wiki-sidebar.wiki-sidebar {\n  --sb-bg: #f8f9fa;\n  --sb-border: #a2a9b1;\n  --sb-accent: #a2a9b1;\n  --sb-text: #202122;\n  --sb-link: #3366cc;\n  --sb-redlink: #d73333;\n  float: right;\n  clear: right;\n  width: 22em;\n  max-width: 100%;\n  box-sizing: border-box;\n  margin: 0 0 1em 1.25em;\n  padding: 0.2em 0.4em 0.3em;\n  border: 1px solid var(--sb-accent);\n  background: var(--sb-bg);\n  color: var(--sb-text);\n  font-size: 88%;\n  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;\n  line-height: 1.4em;\n  text-align: center;\n  overflow-wrap: anywhere;\n}\n:root body aside.wiki-sidebar.wiki-sidebar * {\n  font-family: inherit;\n  color: inherit;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-above {\n  padding-top: 0.2em;\n  font-size: 100%;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-title {\n  font-size: 150%;\n  font-weight: bold;\n  line-height: 1.25em;\n  padding: 0.1em 0 0.3em;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-figure {\n  margin: 0.2em auto 0.4em;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-figure img.sidebar-image {\n  display: block;\n  margin: 0 auto;\n  max-width: 100%;\n  max-height: 9em;\n  height: auto;\n  border-radius: 0;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-figure figcaption {\n  font-size: 90%;\n  padding-top: 0.2em;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-section {\n  border-top: 1px solid var(--sb-accent);\n  margin: 0;\n  padding: 0;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-heading {\n  position: relative;\n  display: block;\n  padding: 0.25em 3.4em;\n  font-weight: bold;\n  list-style: none;\n  cursor: default;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-heading::-webkit-details-marker, :root body aside.wiki-sidebar.wiki-sidebar .sidebar-heading::marker {\n  display: none;\n  content: "";\n}\n:root body aside.wiki-sidebar.wiki-sidebar summary.sidebar-heading {\n  cursor: pointer;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-toggle {\n  position: absolute;\n  right: 0.1em;\n  top: 0.25em;\n  font-weight: normal;\n  font-size: 95%;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-toggle .sidebar-show,\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-toggle .sidebar-hide {\n  color: var(--sb-link);\n}\n:root body aside.wiki-sidebar.wiki-sidebar details[open] > summary .sidebar-show,\n:root body aside.wiki-sidebar.wiki-sidebar details:not([open]) > summary .sidebar-hide {\n  display: none;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-content {\n  padding: 0.1em 0 0.4em;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-subheading {\n  font-weight: bold;\n  padding-top: 0.2em;\n}\n:root body aside.wiki-sidebar.wiki-sidebar ul.sidebar-hlist {\n  display: block;\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n:root body aside.wiki-sidebar.wiki-sidebar ul.sidebar-hlist li {\n  display: inline;\n  margin: 0;\n  padding: 0;\n  white-space: normal;\n}\n:root body aside.wiki-sidebar.wiki-sidebar ul.sidebar-hlist li::before {\n  content: none;\n}\n:root body aside.wiki-sidebar.wiki-sidebar ul.sidebar-hlist li + li::before {\n  content: " \xB7 ";\n  font-weight: bold;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-footer {\n  border-top: 1px solid var(--sb-accent);\n  padding: 0.3em 0;\n}\n:root body aside.wiki-sidebar.wiki-sidebar .sidebar-navbar {\n  border-top: 1px solid var(--sb-accent);\n  padding-top: 0.15em;\n  text-align: right;\n  font-size: 80%;\n}\n:root body aside.wiki-sidebar.wiki-sidebar a.internal {\n  color: var(--sb-link);\n  background: none;\n  padding: 0;\n  border-radius: 0;\n  font-weight: inherit;\n  text-decoration: none;\n}\n:root body aside.wiki-sidebar.wiki-sidebar a.internal:hover {\n  text-decoration: underline;\n}\n:root body aside.wiki-sidebar.wiki-sidebar a.internal.infobox-redlink {\n  color: var(--sb-redlink);\n}\n:root body aside.wiki-sidebar.wiki-sidebar b,\n:root body aside.wiki-sidebar.wiki-sidebar strong {\n  font-weight: bold;\n}\n:root body aside.wiki-sidebar.wiki-sidebar i,\n:root body aside.wiki-sidebar.wiki-sidebar em {\n  font-style: italic;\n}\n\n:root[saved-theme=dark] body aside.wiki-sidebar.wiki-sidebar {\n  --sb-bg: #202122;\n  --sb-border: #54595d;\n  --sb-text: #eaecf0;\n  --sb-link: #88a3e8;\n  --sb-redlink: #fd7865;\n}\n\n:root[saved-theme=dark] body aside.wiki-sidebar.wiki-sidebar:not([style]) {\n  --sb-accent: #54595d;\n}\n\n@media (max-width: 800px) {\n  :root body aside.wiki-sidebar.wiki-sidebar {\n    float: none;\n    width: 100%;\n    margin: 0 0 1em 0;\n  }\n}';
 
 // src/components/styles/links.scss
 var links_default = ":root {\n  --wl-link: #3366cc;\n  --wl-redlink: #d73333;\n}\n\n:root[saved-theme=dark] {\n  --wl-link: #88a3e8;\n  --wl-redlink: #fd7865;\n}\n\n:root:root body a.internal.internal-link:not(.tag-link),\n:root:root body a.internal.internal-link:not(.tag-link):visited {\n  color: var(--wl-link);\n  background: none;\n  background-color: transparent;\n  padding: 0;\n  border-radius: 0;\n  font-family: inherit;\n  font-weight: inherit;\n  text-decoration: none;\n  filter: none;\n  opacity: 1;\n}\n:root:root body a.internal.internal-link:not(.tag-link):hover,\n:root:root body a.internal.internal-link:not(.tag-link):visited:hover {\n  text-decoration: underline;\n  text-decoration-color: currentColor;\n}\n:root:root body a.internal.internal-link:not(.tag-link).broken,\n:root:root body a.internal.internal-link:not(.tag-link):visited.broken {\n  color: var(--wl-redlink);\n  opacity: 1;\n  filter: none;\n}";
@@ -183,22 +183,41 @@ function numberedGroups(fields, bases) {
   }).filter((group) => Object.values(group).some(hasValue));
 }
 var WIKILINK = /\[\[([^[\]]+?)\]\]/g;
+function findSlug(target, ctx) {
+  const page = target.split("#")[0].replace(/[*_]+/g, "").trim();
+  if (page === "") return ctx.src;
+  const slug2 = slugifyFilePath(`${page}.md`);
+  const matches = ctx.allSlugs.filter(
+    (candidate) => slug2.includes("/") ? candidate === slug2 || candidate.endsWith(`/${slug2}`) : candidate.split("/").at(-1) === slug2
+  );
+  return matches.length === 1 ? matches[0] : void 0;
+}
+function linkTargets(value) {
+  if (Array.isArray(value)) return value.flatMap(linkTargets);
+  if (typeof value !== "string") return [];
+  return [...value.matchAll(WIKILINK)].map((m2) => m2[1].split("|")[0].trim());
+}
 function resolveWikilink(target, ctx) {
   const hashAt = target.indexOf("#");
   const page = (hashAt === -1 ? target : target.slice(0, hashAt)).trim();
   const heading = hashAt === -1 ? "" : target.slice(hashAt + 1).trim();
   const anchor = heading ? "#" + heading.toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, "").trim().replace(/\s+/g, "-") : "";
-  if (page === "") return { href: anchor, exists: true };
+  if (page === "") return { href: anchor, exists: true, self: false };
   const slug2 = slugifyFilePath(`${page}.md`);
   const matches = ctx.allSlugs.filter(
     (candidate) => slug2.includes("/") ? candidate === slug2 || candidate.endsWith(`/${slug2}`) : candidate.split("/").at(-1) === slug2
   );
   if (matches.length === 1) {
-    return { href: resolveRelative(ctx.src, matches[0]) + anchor, exists: true };
+    return {
+      href: resolveRelative(ctx.src, matches[0]) + anchor,
+      exists: true,
+      self: matches[0] === ctx.src && anchor === ""
+    };
   }
   return {
     href: joinSegments(pathToRoot(ctx.src), slug2) + anchor,
-    exists: matches.length > 1
+    exists: matches.length > 1,
+    self: false
   };
 }
 function resolveAsset(path, ctx) {
@@ -235,7 +254,10 @@ function renderLink(inner, ctx, key) {
   const target = rawTarget.replace(/[*_]+/g, "").trim();
   const labelText = pipe === -1 ? rawTarget.replace(/#/, " \u203A ") : inner.slice(pipe + 1).trim();
   const label = renderEmphasis(labelText, `${key}lab`);
-  const { href, exists } = resolveWikilink(target, ctx);
+  const { href, exists, self } = resolveWikilink(target, ctx);
+  if (self) {
+    return /* @__PURE__ */ u2("b", { class: "infobox-selflink", children: label }, key);
+  }
   return exists ? /* @__PURE__ */ u2("a", { href, class: "internal", children: label }, key) : /* @__PURE__ */ u2("a", { href, class: "internal infobox-redlink", title: `${target} (page does not exist yet)`, children: label }, key);
 }
 function renderLine(line, ctx, keyPrefix) {
@@ -425,14 +447,14 @@ function mainImage(r2, alt, imageKey = "image", captionKey = "image_caption") {
     "infobox-full infobox-images"
   );
 }
-function box(type, title, ctx, rows, extras = {}) {
+function box(type, title, ctx, rows2, extras = {}) {
   return /* @__PURE__ */ u2("table", { class: `infobox infobox-${type}`, children: [
     /* @__PURE__ */ u2("caption", { class: "infobox-title", children: [
       hasValue(extras.above) ? /* @__PURE__ */ u2("div", { class: "infobox-above", children: renderValue(extras.above, ctx) }) : null,
       renderInline(title, ctx),
       (extras.below ?? []).filter(hasValue).map((line, i2) => /* @__PURE__ */ u2("div", { class: "infobox-native-name", children: renderValue(line, ctx) }, i2))
     ] }),
-    /* @__PURE__ */ u2("tbody", { children: rows })
+    /* @__PURE__ */ u2("tbody", { children: rows2 })
   ] });
 }
 function first(fields, ...keys) {
@@ -758,6 +780,118 @@ function renderElection(raw, ctx, fallbackTitle) {
 }
 var knownElection = /^(?:election_name|subtitle|previous|previous_election|next|next_election|date|election_date|image|image_caption|caption|country|type|location|registered|electors|ballots|majority|turnout|party_label|votes_label|seats_label|(?:candidate|nominee|image|party|school|leader|running_mate|home_state|votes|popular_vote|percentage|seats|seat_change|electoral_vote|note)\d+|candidates|office|before_election|before_party|after_election|after_party)$/;
 
+// src/generic.tsx
+function renderGeneric(fields, ctx, fallbackTitle) {
+  const r2 = new Rows(fields, ctx);
+  const title = first(fields, "name", "title") ?? fallbackTitle;
+  mainImage(r2, String(title));
+  r2.extras();
+  if (r2.rows.length === 0) return null;
+  return box("generic", title, ctx, r2.rows, {
+    below: hasValue(fields.subtitle) ? [fields.subtitle] : []
+  });
+}
+var knownGeneric = /^(?:name|subtitle|image|image_caption|caption)$/;
+
+// src/ideology.tsx
+var SECTIONS = [
+  [
+    "",
+    [
+      [["other_names", "other_name", "also_known_as"], "Other names"],
+      [["parent", "parent_ideology", "part_of"], "Parent ideology"],
+      [["founder", "founders"], "Founders"],
+      [["founded", "founded_date"], "Founded"],
+      [["origin", "founded_place"], "Origin"],
+      [["key_figures", "proponents", "notable_proponents"], "Notable proponents"]
+    ]
+  ],
+  [
+    "Beliefs",
+    [
+      [["key_ideas", "tenets", "core_tenets", "principles"], "Key ideas"],
+      [["political_position", "position", "spectrum"], "Political position"],
+      [["economics", "economic_ideology"], "Economics"],
+      [["religion"], "Religion"],
+      [["variants", "branches", "factions"], "Variants"]
+    ]
+  ],
+  [
+    "Relationships",
+    [
+      [["influenced_by", "inspired_by"], "Influenced by"],
+      [["influenced"], "Influenced"],
+      [["related", "related_ideologies"], "Related ideologies"],
+      [["opposed_to", "opposes", "opposition"], "Opposed to"],
+      [["parties", "associated_parties"], "Associated parties"],
+      [["organizations", "organisations"], "Organizations"]
+    ]
+  ]
+];
+var SYMBOLS = [
+  [["symbol", "symbols"], "Symbol"],
+  [["slogan", "motto"], "Slogan"],
+  [["anthem"], "Anthem"]
+];
+var HEX = /^#[0-9a-f]{3,8}$/i;
+var NAMED = /^[a-z]{3,20}$/i;
+function swatches(value, ctx) {
+  const items = (Array.isArray(value) ? value : String(value).split(/,\s*/)).filter(hasValue).map(String);
+  return /* @__PURE__ */ u2("span", { class: "infobox-swatches", children: items.map((item, i2) => {
+    const parts = item.trim().split(/\s+/);
+    const hex = parts.find((p2) => HEX.test(p2));
+    const label = parts.filter((p2) => p2 !== hex).join(" ");
+    const colour = hex ?? (NAMED.test(label) ? label : void 0);
+    return /* @__PURE__ */ u2("span", { class: "infobox-swatch-item", children: [
+      colour ? /* @__PURE__ */ u2("span", { class: "infobox-swatch", style: `background:${colour}`, title: item }) : null,
+      label ? renderInline(label, ctx) : null
+    ] }, i2);
+  }) });
+}
+function renderIdeology(fields, ctx, fallbackTitle) {
+  const r2 = new Rows(fields, ctx);
+  const title = first(fields, "name", "title") ?? fallbackTitle;
+  mainImage(r2, String(title));
+  for (const [heading, specs] of SECTIONS) {
+    const build = () => {
+      for (const [keys, label] of specs) r2.row(label, first(fields, ...keys));
+    };
+    if (heading) r2.section(heading, build);
+    else build();
+  }
+  r2.section("Symbols", () => {
+    const colours = first(fields, "colors", "colours", "color", "colour");
+    if (hasValue(colours)) {
+      r2.rows.push(
+        /* @__PURE__ */ u2("tr", { children: [
+          /* @__PURE__ */ u2("th", { scope: "row", class: "infobox-label", children: "Colors" }),
+          /* @__PURE__ */ u2("td", { class: "infobox-data", children: swatches(colours, ctx) })
+        ] }, r2.key())
+      );
+    }
+    for (const [keys, label] of SYMBOLS) r2.row(label, first(fields, ...keys));
+  });
+  r2.extras();
+  if (r2.rows.length === 0) return null;
+  return box("ideology", title, ctx, r2.rows, { below: [fields.native_name, fields.subtitle] });
+}
+var knownIdeology = new RegExp(
+  "^(?:" + [
+    "name",
+    "native_name",
+    "subtitle",
+    "image",
+    "image_caption",
+    "caption",
+    "colors",
+    "colours",
+    "color",
+    "colour",
+    ...SECTIONS.flatMap(([, specs]) => specs.flatMap(([keys]) => keys)),
+    ...SYMBOLS.flatMap(([keys]) => keys)
+  ].join("|") + ")$"
+);
+
 // src/person.tsx
 var ALIASES4 = [
   [/^burial$/, "resting_place"],
@@ -938,6 +1072,184 @@ function renderPerson(raw, ctx, fallbackTitle) {
 }
 var knownPerson = /^(?:name|honorific_prefix|honorific_suffix|native_name|subtitle|image|image_caption|caption|(?:office|order|term_label|term_start|term_end|term|coronation|office_note|predecessor|successor|monarch|president|prime_minister|chancellor|vice_president|deputy|governor|regent)\d*|offices_held|titles_held|born|birth_name|birth_date|birth_place|died|death_date|death_place|cause_of_death|resting_place|burial|nationality|citizenship|party|other_party|consorts?|spouses?|partner|children|issue|parents|father|mother|relatives|family|house|dynasty|religion|residence|education|alma_mater|occupation|profession|known_for|nicknames?|signature|allegiance|branch|service|service_years|serviceyears|years_of_service|rank|unit|commands|battles|combat|conflicts|wars|awards|medals)$/;
 
+// src/religion.tsx
+var ROWS = [
+  [["abbreviation"], "Abbreviation"],
+  [["type"], "Type"],
+  [["classification", "main_classification"], "Classification"],
+  [["orientation"], "Orientation"],
+  [["scripture", "scriptures"], "Scripture"],
+  [["theology"], "Theology"],
+  [["polity"], "Polity"],
+  [["governance"], "Governance"],
+  [["structure"], "Structure"]
+];
+var ROWS_AFTER_LEADERS = [
+  [["fellowships"], "Fellowships"],
+  [["associations"], "Associations"],
+  [["region", "regions"], "Region"],
+  [["language"], "Language"],
+  [["languages"], "Languages"],
+  [["liturgy"], "Liturgy"],
+  [["headquarters"], "Headquarters"],
+  [["territory"], "Territory"],
+  [["possessions"], "Possessions"],
+  [["founder"], "Founder"],
+  [["founders"], "Founders"]
+];
+var ROWS_AFTER_ORIGIN = [
+  [["independence"], "Independence"],
+  [["recognition"], "Recognition"],
+  [["branched_from"], "Branched from"],
+  [["separated_from"], "Separated from"],
+  [["separated_or_inspired_from"], "Separated or inspired from"],
+  [["inspired_by"], "Inspired by"],
+  [["merger"], "Merger of"],
+  [["absorbed"], "Absorbed"],
+  [["separations"], "Separations"],
+  [["merged_into"], "Merged into"],
+  [["defunct"], "Defunct"],
+  [["denominations"], "Denominations"],
+  [["branches"], "Branches"],
+  [["schools"], "Schools"],
+  [["congregations"], "Congregations"],
+  [["members"], "Members"],
+  [["adherents"], "Adherents"],
+  [["clergy", "ministers"], "Clergy"],
+  [["other_name", "other_names"], "Other name(s)"]
+];
+function rows(r2, specs) {
+  for (const [keys, label] of specs) r2.row(label, first(r2.fields, ...keys));
+}
+function renderReligion(fields, ctx, fallbackTitle) {
+  const r2 = new Rows(fields, ctx);
+  const title = first(fields, "name", "title") ?? fallbackTitle;
+  mainImage(r2, String(title));
+  rows(r2, ROWS);
+  for (const leader of numberedGroups(fields, ["leader_title", "leader_name"])) {
+    r2.row(hasValue(leader.leader_title) ? renderInline(leader.leader_title, ctx) : "Leader", leader.leader_name);
+  }
+  rows(r2, ROWS_AFTER_LEADERS);
+  const founded = [fields.founded_date ?? fields.founded, fields.founded_place].filter(hasValue).map(String);
+  r2.row("Origin", hasValue(fields.origin) ? fields.origin : founded.length ? founded.join("\n") : void 0);
+  rows(r2, ROWS_AFTER_ORIGIN);
+  r2.extras();
+  if (r2.rows.length === 0) return null;
+  return box("religion", title, ctx, r2.rows, { below: [fields.native_name, fields.subtitle] });
+}
+var knownReligion = new RegExp(
+  "^(?:" + [
+    "name",
+    "native_name",
+    "subtitle",
+    "image",
+    "image_caption",
+    "caption",
+    "origin",
+    "founded",
+    "founded_date",
+    "founded_place",
+    "leader_title\\d*",
+    "leader_name\\d*",
+    ...[...ROWS, ...ROWS_AFTER_LEADERS, ...ROWS_AFTER_ORIGIN].flatMap(([keys]) => keys)
+  ].join("|") + ")$"
+);
+
+// src/series.tsx
+var SERIES_KEYS = /^(?:infobox|name|main|image|image_caption|caption|color|colour|footer|above|collapsible|title|tags|aliases|layout|draft|publish|permalink|description|date|created|modified|lastmod|updated|published|cssclass|cssclasses|enabletoc|comments|lang|socialimage|socialdescription|password|unlisted|series)$/;
+var COLOR = /^(?:#[0-9a-f]{3,8}|[a-z]{3,20}|rgba?\([\d\s.,%]+\)|hsla?\([\d\s.,%deg]+\))$/i;
+function bareName(value) {
+  const text = String(value).trim();
+  const link = /^\[\[([^\]|#]+)/.exec(text);
+  return (link ? link[1] : text).trim().toLowerCase();
+}
+function namesOf(def) {
+  const fields = normalizeKeys(def.raw);
+  const fileName = def.slug.split("/").at(-1).replace(/-/g, " ");
+  return [fields.name, fields.title, fileName].filter(hasValue).map(bareName).flatMap((n2) => [n2, n2.replace(/\s*\(series\)$/, "")]);
+}
+function seriesPages(allFiles, typeKey) {
+  return allFiles.filter((f3) => {
+    const fields = normalizeKeys(f3.frontmatter);
+    return typeof f3.slug === "string" && String(fields[typeKey] ?? "").trim().toLowerCase() === "series";
+  }).map((f3) => ({ slug: f3.slug, raw: f3.frontmatter ?? {} }));
+}
+function findSeries(name, defs) {
+  const wanted = bareName(name).replace(/\s*\(series\)$/, "");
+  return defs.find((def) => namesOf(def).includes(wanted));
+}
+function groups(items) {
+  const out = [{ items: [] }];
+  for (const item of items) {
+    if (/^\*\*[^*]+\*\*$/.test(item.trim())) out.push({ heading: item.trim(), items: [] });
+    else out.at(-1).items.push(item.replace(/^\s*[*-]\s+/, ""));
+  }
+  return out.filter((g2) => g2.heading || g2.items.length);
+}
+function itemsOf(value) {
+  const list = Array.isArray(value) ? value : [value];
+  return list.filter(hasValue).flatMap(
+    (v2) => typeof v2 === "string" ? parseLines(v2).map((l2) => l2.level ? `* ${l2.text}` : l2.text) : [String(v2)]
+  );
+}
+function sectionBody(items, ctx) {
+  return groups(items).map((g2, i2) => /* @__PURE__ */ u2("div", { class: "sidebar-group", children: [
+    g2.heading ? /* @__PURE__ */ u2("div", { class: "sidebar-subheading", children: renderInline(g2.heading, ctx) }) : null,
+    g2.items.length ? /* @__PURE__ */ u2("ul", { class: "sidebar-hlist", children: g2.items.map((item, j2) => /* @__PURE__ */ u2("li", { children: renderInline(item, ctx) }, j2)) }) : null
+  ] }, i2));
+}
+function renderSeries(def, pageCtx) {
+  const ctx = { ...pageCtx, extras: [] };
+  const fields = normalizeKeys(def.raw);
+  const name = hasValue(fields.name) ? String(fields.name) : String(fields.title ?? namesOf(def)[0] ?? "");
+  const sections = Object.entries(def.raw).filter(
+    ([key, value]) => !SERIES_KEYS.test(key.trim().toLowerCase().replace(/[\s-]+/g, "_")) && hasValue(value)
+  );
+  const collapsible = fields.collapsible !== false && sections.length > 1;
+  const mainTarget = hasValue(fields.main) ? linkTargets(fields.main)[0] ?? String(fields.main) : name;
+  const main = resolveWikilink(mainTarget, { ...ctx, allSlugs: ctx.allSlugs.filter((slug2) => slug2 !== def.slug) });
+  const titleText = hasValue(fields.main) && !linkTargets(fields.main).length ? String(fields.main) : name;
+  const title = main.exists && !main.self ? /* @__PURE__ */ u2("a", { href: main.href, class: "internal", children: titleText }) : titleText;
+  const accent = [fields.color, fields.colour].find((c2) => typeof c2 === "string" && COLOR.test(c2.trim()));
+  const pic = image(fields.image, String(name), ctx, "sidebar-image");
+  const view = def.slug !== ctx.src ? resolveWikilink(def.slug, ctx) : null;
+  return /* @__PURE__ */ u2("aside", { class: "wiki-sidebar", style: accent ? `--sb-accent:${accent.trim()}` : void 0, children: [
+    /* @__PURE__ */ u2("div", { class: "sidebar-above", children: hasValue(fields.above) ? renderInline(fields.above, ctx) : "Part of a series on" }),
+    /* @__PURE__ */ u2("div", { class: "sidebar-title", children: title }),
+    pic ? /* @__PURE__ */ u2("figure", { class: "sidebar-figure", children: [
+      pic,
+      hasValue(fields.image_caption ?? fields.caption) ? /* @__PURE__ */ u2("figcaption", { children: renderInline(fields.image_caption ?? fields.caption, ctx) }) : null
+    ] }) : null,
+    sections.map(([key, value], i2) => {
+      const items = itemsOf(value);
+      const heading = renderInline(key, ctx);
+      const here = [key, ...items].some(
+        (text) => linkTargets(text).some((target) => findSlug(target, ctx) === ctx.src)
+      );
+      if (!collapsible) {
+        return /* @__PURE__ */ u2("div", { class: "sidebar-section", children: [
+          /* @__PURE__ */ u2("div", { class: "sidebar-heading", children: heading }),
+          /* @__PURE__ */ u2("div", { class: "sidebar-content", children: sectionBody(items, ctx) })
+        ] }, i2);
+      }
+      return /* @__PURE__ */ u2("details", { class: "sidebar-section", open: here, children: [
+        /* @__PURE__ */ u2("summary", { class: "sidebar-heading", children: [
+          /* @__PURE__ */ u2("span", { class: "sidebar-heading-text", children: heading }),
+          /* @__PURE__ */ u2("span", { class: "sidebar-toggle", children: [
+            "[",
+            /* @__PURE__ */ u2("span", { class: "sidebar-show", children: "show" }),
+            /* @__PURE__ */ u2("span", { class: "sidebar-hide", children: "hide" }),
+            "]"
+          ] })
+        ] }),
+        /* @__PURE__ */ u2("div", { class: "sidebar-content", children: sectionBody(items, ctx) })
+      ] }, i2);
+    }),
+    hasValue(fields.footer) ? /* @__PURE__ */ u2("div", { class: "sidebar-footer", children: itemsOf(fields.footer).map((item, i2) => /* @__PURE__ */ u2("div", { children: renderInline(item, ctx) }, i2)) }) : null,
+    view?.exists ? /* @__PURE__ */ u2("div", { class: "sidebar-navbar", children: /* @__PURE__ */ u2("a", { href: view.href, class: "internal", title: `View the ${name} series page`, children: "view" }) }) : null
+  ] });
+}
+
 // src/components/scripts/infobox.inline.ts
 var infobox_inline_default = 'function o(){for(let e of document.querySelectorAll(".infobox img")){let n=()=>{let r=e.closest("figure")??e;r.style.display="none";let t=e.closest("tr");t&&![...t.querySelectorAll("figure, img")].some(s=>s.style.display!=="none")&&(t.style.display="none")};e.complete&&e.naturalWidth===0?n():(e.addEventListener("error",n,{once:!0}),window.addCleanup?.(()=>e.removeEventListener("error",n)))}}document.addEventListener("nav",o);document.addEventListener("render",o);\n';
 
@@ -946,7 +1258,10 @@ var country = { render: renderCountry, known: knownCountry };
 var person = { render: renderPerson, known: knownPerson };
 var conflict = { render: renderConflict, known: knownConflict };
 var election = { render: renderElection, known: knownElection };
-var META = /^(?:infobox|title|tags|aliases|layout|draft|publish|permalink|description|date|created|modified|lastmod|updated|published|cssclass|cssclasses|enabletoc|comments|lang|socialimage|socialdescription|password|unlisted)$/;
+var religion = { render: renderReligion, known: knownReligion };
+var ideology = { render: renderIdeology, known: knownIdeology };
+var generic = { render: renderGeneric, known: knownGeneric };
+var META = /^(?:infobox|title|tags|aliases|layout|draft|publish|permalink|description|date|created|modified|lastmod|updated|published|cssclass|cssclasses|enabletoc|comments|lang|socialimage|socialdescription|password|unlisted|series)$/;
 var renderers = {
   country,
   nation: country,
@@ -963,32 +1278,59 @@ var renderers = {
   battle: conflict,
   military_conflict: conflict,
   election,
-  conclave: election
+  conclave: election,
+  religion,
+  religious_organization: religion,
+  denomination: religion,
+  church: religion,
+  ideology,
+  political_ideology: ideology,
+  philosophy: ideology,
+  school_of_thought: ideology,
+  generic,
+  other: generic
 };
 var Infobox_default = ((opts) => {
   const typeKey = (opts?.typeKey ?? "infobox").toLowerCase();
   const Infobox = ({ fileData, allFiles }) => {
-    const fields = normalizeKeys(fileData.frontmatter);
-    const type = fields[typeKey];
-    if (typeof type !== "string") return null;
-    const infoboxType = renderers[type.trim().toLowerCase().replace(/[\s-]+/g, "_")];
-    if (!infoboxType) return null;
-    const original = /* @__PURE__ */ new Map();
-    for (const key of Object.keys(fileData.frontmatter ?? {})) {
-      original.set(key.trim().toLowerCase().replace(/[\s-]+/g, "_"), key.trim());
-    }
-    const extras = Object.entries(fields).filter(([key, value]) => !META.test(key) && !infoboxType.known.test(key) && hasValue(value)).map(([key, value]) => ({ label: original.get(key) ?? key, value }));
+    const frontmatter = fileData.frontmatter;
+    const fields = normalizeKeys(frontmatter);
+    const typeName = typeof fields[typeKey] === "string" ? String(fields[typeKey]).trim().toLowerCase().replace(/[\s-]+/g, "_") : "";
     const ctx = {
       src: fileData.slug,
+      extras: [],
       // Tag pages (tags/moremia) are generated by Quartz, not written by you, so they
       // must not make [[Moremia]] look like an existing page.
-      extras,
       allSlugs: allFiles.map((f3) => f3.slug).filter((slug2) => typeof slug2 === "string" && !slug2.startsWith("tags/"))
     };
     const fallbackTitle = typeof fields.title === "string" ? fields.title : "";
-    const box2 = infoboxType.render(fields, ctx, fallbackTitle);
-    if (!box2) return null;
-    return box2;
+    const boxes = [];
+    const infoboxType = renderers[typeName];
+    if (infoboxType) {
+      const original = /* @__PURE__ */ new Map();
+      for (const key of Object.keys(frontmatter ?? {})) {
+        original.set(key.trim().toLowerCase().replace(/[\s-]+/g, "_"), key.trim());
+      }
+      ctx.extras = Object.entries(fields).filter(([key, value]) => !META.test(key) && !infoboxType.known.test(key) && hasValue(value)).map(([key, value]) => ({ label: original.get(key) ?? key, value }));
+      const box2 = infoboxType.render(fields, ctx, fallbackTitle);
+      if (box2) boxes.push(box2);
+    }
+    if (typeName === "series") {
+      const own2 = renderSeries({ slug: ctx.src, raw: frontmatter ?? {} }, ctx);
+      if (own2) boxes.push(own2);
+    }
+    if (hasValue(fields.series)) {
+      const defs = seriesPages(allFiles, typeKey);
+      const wanted = Array.isArray(fields.series) ? fields.series : [fields.series];
+      for (const name of wanted.filter(hasValue)) {
+        const def = findSeries(name, defs);
+        if (!def || def.slug === ctx.src) continue;
+        const sidebar = renderSeries(def, ctx);
+        if (sidebar) boxes.push(sidebar);
+      }
+    }
+    if (boxes.length === 0) return null;
+    return /* @__PURE__ */ u2(S, { children: boxes });
   };
   Infobox.afterDOMLoaded = infobox_inline_default;
   return Infobox;

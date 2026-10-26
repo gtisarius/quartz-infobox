@@ -1,6 +1,6 @@
 {
   "name": "quartz-infobox",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Wikipedia-style infoboxes for Quartz 5, built from page frontmatter.",
   "type": "module",
   "license": "MIT",
@@ -90,7 +90,7 @@
       "transformer",
       "component"
     ],
-    "version": "0.3.0",
+    "version": "0.4.0",
     "quartzVersion": ">=5.0.0",
     "dependencies": [],
     "defaultOrder": 50,

@@ -41,6 +41,7 @@ declare function numberedGroups(fields: Fields, bases: string[]): Record<string,
 declare function resolveWikilink(target: string, ctx: RenderCtx): {
     href: string;
     exists: boolean;
+    self: boolean;
 };
 /** URL for an image path written relative to the content folder, e.g. img/flags/Vicus.png. */
 declare function resolveAsset(path: string, ctx: RenderCtx): string;
